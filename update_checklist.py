@@ -20,7 +20,7 @@ churchmap='https://www.google.com/maps/search/?api=1&query='+quote(church['name'
 cemmap='https://www.google.com/maps/search/?api=1&query='+quote(cem['name']+', '+cem['address'])
 button=s.select_one('.hero .outline');button.clear();button.string='Directions to the Service';button['href']=churchmap
 s.select_one('.hero .legacy').insert_after(fragment(f'<p class="essentials">{c["dateLabel"]} · Visitation {c["viewing"]["label"]} CT · Service {c["service"]["label"]} CT · Embassies of Christ, Gary, IN</p>'))
-s.select_one('.date-label span').string='Gary is on Central Time, one hour behind Indianapolis.'
+s.select_one('.date-label span').string='All service times are Central Standard Time (CST), the local time in Gary, Indiana.'
 for n,k in enumerate(['viewing','service']):
  dt=datetime.fromisoformat(c['date']+'T'+c[k]['time']).replace(tzinfo=ZoneInfo('America/Chicago'))
  s.select('.schedule .time')[n].string=c[k]['label']+' CT ('+dt.astimezone(ZoneInfo('America/Indiana/Indianapolis')).strftime('%I:%M %p').lstrip('0')+' ET)'
@@ -32,7 +32,7 @@ if c['repast']['venue']:rep.append(fragment('<h3>'+c['repast']['venue']+'</h3><p
 s.select_one('.calendar-note').clear();s.select_one('.calendar-note').append(fragment('End times are estimates. <a class="calendar-button" href="all-events.ics" download>Add all to calendar</a>'))
 s.select_one('.schedule').insert_after(fragment('<div class="attire-row"><h3>Attire</h3><p>'+attire+'</p><a href="#fuchsia">Why?</a></div>'))
 faqs=s.select_one('.faqs');faqs.clear()
-answers=[('When should I arrive?',f'Visitation and viewing begin at {c["viewing"]["label"]} CT. The funeral service begins at {c["service"]["label"]} CT. Please allow time to arrive and be seated.'),('What time zone should I use?','Gary is on Central Time, one hour behind Indianapolis. Visitation is 10:00 AM CT (11:00 AM ET); the funeral service is 11:00 AM CT (12:00 PM ET).'),('What should I wear?',attire),('Is the graveside open to everyone?','Yes, to family and friends.'),('How do I get to the cemetery?','Find the address and map links in <a href="#locations">Plan Your Visit</a>.'),('What should I expect at the cemetery?','The graveside is outdoors in late November. Dress warmly and wear sturdy shoes.')]
+answers=[('When should I arrive?',f'Visitation and viewing begin at {c["viewing"]["label"]} CT. The funeral service begins at {c["service"]["label"]} CT. Please allow time to arrive and be seated.'),('What time zone should I use?','All service times are Central Standard Time (CST), the local time in Gary, Indiana. If traveling from another time zone, please adjust your arrival plans accordingly.'),('What should I wear?',attire),('Is the graveside open to everyone?','Yes, to family and friends.'),('How do I get to the cemetery?','Find the address and map links in <a href="#locations">Plan Your Visit</a>.'),('What should I expect at the cemetery?','The graveside is outdoors in late November. Dress warmly and wear sturdy shoes.')]
 for q,a in answers:faqs.append(fragment(f'<details open><summary>{q}</summary><p>{a}</p></details>'))
 if c['flowerDelivery']['verified'] and c['flowerDelivery']['instructions']:\n s.select_one('#sympathy').append(fragment('<article class="delivery"><h3>Flower delivery information</h3><p>'+c['flowerDelivery']['instructions']+'</p></article>'))
 s.footer.insert_before(fragment('<p class="updated">Last updated: '+c['lastUpdated']+'</p>'))
@@ -90,7 +90,7 @@ fuchsia_story=fuchsia.select_one('.story').extract()
 fuchsia_attire=fuchsia_story.select_one('.attire')
 fuchsia_attire['class']=['attire','attire-callout']
 fuchsia_attire.clear()
-fuchsia_attire.append(fragment('<p class="eyebrow">A respectful tribute</p><h3>Attire &amp; Color Guidance</h3><p>Our immediate family will wear black in honor of Mom, allowing the beautiful fuchsia she selected to remain uniquely hers.</p><p>Family and friends are welcome to wear respectful funeral attire. We kindly ask that guests avoid fuchsia dresses or predominantly fuchsia outfits, as this color has been reserved as a special tribute to Lynda.</p><p class="signature">With gratitude,<br>The Family of Lynda Marie Jones</p>'))
+fuchsia_attire.append(fragment('<p class="eyebrow">A respectful tribute</p><h3>Attire &amp; Color Guidance</h3><p>Our immediate family will wear black in honor of Mom, allowing the beautiful fuchsia she selected to remain uniquely hers.</p><p>Family and friends are welcome to wear respectful funeral attire, and small touches of fuchsia—a pendant, scarf, flower, or pin—are welcome. We kindly ask guests to avoid fuchsia dresses or predominantly fuchsia outfits, reserving that color as a special tribute to Lynda.</p><p class="signature">With love and gratitude,<br>Willie, Ro-Sako, and Almeca<br>The Children of Lynda Marie Jones</p>'))
 fuchsia_copy.append(fuchsia_title)
 fuchsia_copy.append(fuchsia_story)
 fuchsia.clear()
