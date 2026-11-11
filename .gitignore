@@ -1,0 +1,5 @@
+.openai/
+.vercel/
+__pycache__/
+dist/assets/
+dist/qa.html
