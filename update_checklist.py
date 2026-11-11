@@ -102,6 +102,28 @@ song['class']=['song','song-image']
 song['aria-label']='Her Song Lives On, a tribute to Lynda Marie Jones and her love of singing'
 song.append(s.new_tag('img',attrs={'src':c['songBanner'],'alt':'Her Song Lives On memorial banner featuring Lynda singing, with warm gold lettering and plum orchids','loading':'lazy'}))
 
+
+# Final approved public-facing memorial layout and contact details
+hero=s.select_one('#home')
+hero_h1=hero.select_one('#memorial-name')
+hero_h1.clear()
+hero_h1.append(fragment('<span class="given-name">Lynda</span><span class="middle-name">Marie</span><em>Jones</em>'))
+for old in hero.select('.life-dates, .essentials'): old.decompose()
+hero.select_one('.primary').string='Plan Your Visit'
+strip=fragment('<section class="arrival-strip" aria-label="Service date and time"><div class="arrival-strip-inner"><p class="eyebrow">Join us in celebrating her life</p><h2>'+c['dateLabel']+'</h2><div class="arrival-facts"><div><span>Visitation &amp; Viewing</span><strong>'+c['viewing']['label']+'</strong></div><div><span>Funeral Service</span><strong>'+c['service']['label']+'</strong></div></div><p class="arrival-location">All times Central · Embassies of Christ · Gary, Indiana</p></div></section>')
+hero.insert_after(strip)
+inv=s.select_one('.invitation')
+inv.select_one('.eyebrow').string='A Note From Our Family'
+inv.append(fragment('<p class="invitation-cta"><a class="button invitation-button" href="#service">Plan Your Visit →</a></p>'))
+faqs=s.select_one('.faqs')
+faqs.insert(0,fragment('<details><summary>Where may I send flowers, cards, or letters?</summary><p>Address your delivery to '+c['correspondence']['addressee']+', '+c['correspondence']['venue']+', '+c['correspondence']['address']+', '+c['correspondence']['cityStateZip']+'. <a href="#sympathy">View the full mailing information</a>. Please confirm floral receiving instructions before arranging a delivery.</p></details>'))
+sympathy=s.select_one('#sympathy')
+sympathy.append(fragment('<article class="delivery"><p class="eyebrow">Flowers, Cards &amp; Letters</p><h3>Send Your Expressions of Love</h3><p>Please address flowers, cards, and letters for the service as follows:</p><address id="delivery-address"><strong>'+c['correspondence']['addressee']+'</strong><br>'+c['correspondence']['venue']+'<br>'+c['correspondence']['address']+'<br>'+c['correspondence']['cityStateZip']+'</address><div class="delivery-actions"><button id="copy-address" type="button">Copy Address</button><a target="_blank" rel="noopener" href="'+churchmap+'">Church Directions ↗</a></div><p class="delivery-note">For floral arrangements, please confirm receiving hours and delivery instructions with the church or funeral home before scheduling delivery.</p><p id="copy-status" role="status" aria-live="polite"></p></article>'))
+contact_mail=e(c['contact'].get('email') or '')
+if c['contact'].get('authorized') and contact_mail:
+ contact=fragment('<section class="section wrap contact-family" id="contact"><p class="eyebrow">We\'re here to help</p><h2>Questions for Our Family?</h2><p>For additional questions about the arrangements, please contact the family privately. This option opens your email app with your message ready to send.</p><form id="family-contact" action="mailto:'+contact_mail+'" method="get"><div class="contact-fields"><label>Your name <input name="name" required autocomplete="name" maxlength="120" placeholder="Your name"></label><label>Your email <input name="email" type="email" required autocomplete="email" maxlength="200" placeholder="Your email address"></label></div><label>Your question <textarea name="question" required maxlength="1500" rows="4" placeholder="How can we help?"></textarea></label><button type="submit">Compose Email to Family ↗</button><p class="contact-note">This opens your email application; please press Send there to deliver your message. No messages are stored on this website.</p></form></section>')
+ s.select_one('#song').insert_before(contact)
+
 (out/'index.html').write_text(str(s))
 base=['BEGIN:VCALENDAR','VERSION:2.0','PRODID:-//Forever Lynda Marie//Memorial//EN','CALSCALE:GREGORIAN'];events=[]
 for k,title in [('viewing','Visitation and Viewing'),('service','Funeral Service')]:
