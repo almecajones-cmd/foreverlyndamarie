@@ -36,8 +36,9 @@
     "note": "Location and additional details will be announced."
   },
   "contact": {
-    "authorized": false,
-    "details": null
+    "authorized": true,
+    "email": "almecajones@gmail.com",
+    "details": "Email the family for additional questions about arrangements."
   },
   "parking": null,
   "procession": null,
@@ -48,5 +49,11 @@
   "attire": "Our immediate family will wear black in honor of Mom, allowing the beautiful fuchsia she selected to remain uniquely hers. Family and friends are welcome to wear respectful funeral attire. We kindly ask that guests avoid fuchsia dresses or predominantly fuchsia outfits, as this color has been reserved as a special tribute to Lynda.",
   "lastUpdated": "November 11, 2026",
   "fuchsiaEditorial": "https://res.cloudinary.com/v78xwhwr/image/upload/v1794387709/lynda_touch_of_fuchsia_editorial_ef6uoh.png",
-  "songBanner": "https://res.cloudinary.com/v78xwhwr/image/upload/v1794387873/her_song_lives_on_wide_2560_hmjsez.webp"
+  "songBanner": "https://res.cloudinary.com/v78xwhwr/image/upload/v1794387873/her_song_lives_on_wide_2560_hmjsez.webp",
+  "correspondence": {
+    "addressee": "Lynda Jones Memorial Service",
+    "venue": "Embassies of Christ",
+    "address": "4285 Cleveland Street",
+    "cityStateZip": "Gary, IN 46408"
+  }
 }
