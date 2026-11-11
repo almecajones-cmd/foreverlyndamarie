@@ -13,7 +13,20 @@ if r['venue'] and r['address']: repast+=maps({'name':r['venue'],'address':r['add
 contact=''
 if c['contact']['authorized'] and c['contact']['details']: contact='<details><summary>How can I contact the family?</summary><p>'+e(c['contact']['details'])+'</p></details>'
 flowers='<p>'+e(c['flowerDelivery']['instructions'])+'</p>' if c['flowerDelivery']['verified'] and c['flowerDelivery']['instructions'] else ''
-story=['Long before we began planning this celebration, our mother shared a special wish.','Like many mothers and daughters, we sometimes had conversations about things neither of us wanted to imagine. Mom had a way of bringing humor into even the most uncomfortable moments.','But one thing she made perfectly clear: when her time came, she wanted to be laid to rest in fuchsia.','Not black. Not white. Fuchsia.','And if you knew our mother, you knew she was a woman who knew what she wanted.','Fuchsia is often associated with vibrancy, confidence, and love. But to our family, its meaning is much more personal. It represents her voice, her individuality, and a wish she entrusted to us.','Throughout her celebration, you’ll notice subtle touches of fuchsia in the floral arrangements and memorial details. Each is an intentional tribute to her.','The color was her choice. Honoring it is ours.']
+story=[
+  "Our mother was a firecracker.",
+  "Strong-willed, fiercely independent, and never one to shy away from speaking her mind, she knew what she wanted. And if you knew our mother, you knew she wasn't easily persuaded otherwise.",
+  "Over the years, conversations about the future would sometimes come up in our family—where Mom might live as she grew older, what mattered most to her, and even the wishes she had for the day we would have to say goodbye.",
+  "Those conversations weren't always comfortable. Mom occasionally wondered why anyone was so interested in discussing her final arrangements when she was still very much alive!",
+  "But she would engage in the discussion. Her faith was deeply rooted in Christ, and she was at peace with the promise of eternal life. She knew that one day she would be with the Lord. That didn't mean she was in any hurry to leave us!",
+  "And when it came to what she wanted, she was perfectly clear.",
+  "She wanted to be laid to rest in fuchsia.",
+  "Not black. Not white. Fuchsia.",
+  "And knowing our mother, that wasn't a suggestion. That was a decision.",
+  "Fuchsia is bold, vibrant, and impossible to overlook. In many ways, it reflects the woman we knew and loved: strong, confident, unapologetically herself, and never afraid to stand her ground.",
+  "Throughout her celebration, you'll notice subtle touches of fuchsia in the floral arrangements and memorial details. Each is an intentional tribute to her individuality and the wish she shared.",
+  "The color was her choice. Honoring it is ours."
+]
 page=(p/'template.html').read_text()
 from datetime import datetime
 from zoneinfo import ZoneInfo
