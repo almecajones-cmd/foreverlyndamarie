@@ -1,0 +1,25 @@
+BEGIN:VCALENDAR
+VERSION:2.0
+PRODID:-//Forever Lynda Marie//Memorial//EN
+CALSCALE:GREGORIAN
+BEGIN:VEVENT
+UID:lynda-viewing@foreverlyndamarie.com
+DTSTAMP:20261111T120000Z
+DTSTART:20261123T160000Z
+DTEND:20261123T170000Z
+SUMMARY:Lynda Marie Jones - Visitation and Viewing
+LOCATION:Embassies of Christ\, 4285 Cleveland Street\, Gary\, IN 46408
+DESCRIPTION:End time is estimated. Details: https://foreverlyndamarie.ver
+ cel.app
+END:VEVENT
+BEGIN:VEVENT
+UID:lynda-service@foreverlyndamarie.com
+DTSTAMP:20261111T120000Z
+DTSTART:20261123T170000Z
+DTEND:20261123T183000Z
+SUMMARY:Lynda Marie Jones - Funeral Service
+LOCATION:Embassies of Christ\, 4285 Cleveland Street\, Gary\, IN 46408
+DESCRIPTION:End time is estimated. Details: https://foreverlyndamarie.ver
+ cel.app
+END:VEVENT
+END:VCALENDAR

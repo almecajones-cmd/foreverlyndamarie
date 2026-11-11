@@ -4,15 +4,47 @@
   "date": "2026-11-23",
   "dateLabel": "Monday, November 23, 2026",
   "timezone": "America/Chicago",
-  "viewing": {"time":"10:00", "label":"10:00 AM"},
-  "service": {"time":"11:00", "label":"11:00 AM"},
+  "viewing": {
+    "time": "10:00",
+    "label": "10:00 AM",
+    "estimatedEnd": "11:00"
+  },
+  "service": {
+    "time": "11:00",
+    "label": "11:00 AM",
+    "estimatedEnd": "12:30"
+  },
   "venues": [
-    {"label":"Funeral Service", "name":"Embassies of Christ", "address":"4285 Cleveland Street, Gary, IN 46408", "image":"church.jpg", "source":"https://res.cloudinary.com/v78xwhwr/image/upload/v1794382574/IMG_6795_tzhew9.jpg"},
-    {"label":"Cemetery / Interment", "name":"Calumet Park Cemetery and Funeral Chapel", "address":"2305 W. 73rd Avenue, Merrillville, IN 46410", "image":"cemetery.jpg", "source":"https://res.cloudinary.com/v78xwhwr/image/upload/v1794382574/IMG_6797_nwcs8d.jpg"}
+    {
+      "label": "Funeral Service",
+      "name": "Embassies of Christ",
+      "address": "4285 Cleveland Street, Gary, IN 46408",
+      "image": "church.jpg",
+      "source": "https://res.cloudinary.com/v78xwhwr/image/upload/v1794382574/IMG_6795_tzhew9.jpg"
+    },
+    {
+      "label": "Cemetery / Interment",
+      "name": "Calumet Park Cemetery and Funeral Chapel",
+      "address": "2305 W. 73rd Avenue, Merrillville, IN 46410",
+      "image": "cemetery.jpg",
+      "source": "https://res.cloudinary.com/v78xwhwr/image/upload/v1794382574/IMG_6797_nwcs8d.jpg"
+    }
   ],
-  "repast":{"venue":null,"address":null,"note":"Location and additional details will be announced."},
-  "contact":{"authorized":false,"details":null},
-  "parking":null,
-  "procession":null,
-  "flowerDelivery":{"verified":false,"instructions":null}
+  "repast": {
+    "venue": null,
+    "address": null,
+    "note": "Repast details will be posted here."
+  },
+  "contact": {
+    "authorized": false,
+    "details": null
+  },
+  "parking": null,
+  "procession": null,
+  "flowerDelivery": {
+    "verified": false,
+    "instructions": null
+  },
+  "attire": "Our family will be wearing black, and we warmly invite you to join us in black. If you would like to honor Lynda's favorite color, a small touch of fuchsia is welcome: a pin, a flower, a handkerchief. Please keep fuchsia to an accent only.",
+  "lastUpdated": "November 11, 2026"
 }

@@ -33,3 +33,5 @@ for kind,title in [('viewing','Visitation and Viewing'),('service','Funeral Serv
   folded.append(current)
  (out/(kind+'.ics')).write_bytes(('\r\n'.join(folded)+'\r\n').encode())
 print('Built static site and calendar files.')
+
+exec((p/"update_checklist.py").read_text())

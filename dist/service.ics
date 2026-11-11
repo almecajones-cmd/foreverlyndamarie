@@ -2,31 +2,14 @@ BEGIN:VCALENDAR
 VERSION:2.0
 PRODID:-//Forever Lynda Marie//Memorial//EN
 CALSCALE:GREGORIAN
-BEGIN:VTIMEZONE
-TZID:America/Chicago
-BEGIN:STANDARD
-DTSTART:19701101T020000
-TZOFFSETFROM:-0500
-TZOFFSETTO:-0600
-TZNAME:CST
-RRULE:FREQ=YEARLY;BYMONTH=11;BYDAY=1SU
-END:STANDARD
-BEGIN:DAYLIGHT
-DTSTART:19700308T020000
-TZOFFSETFROM:-0600
-TZOFFSETTO:-0500
-TZNAME:CDT
-RRULE:FREQ=YEARLY;BYMONTH=3;BYDAY=2SU
-END:DAYLIGHT
-END:VTIMEZONE
 BEGIN:VEVENT
-UID:lynda-marie-service@foreverlyndamarie.com
-DTSTAMP:20261111T080000Z
-DTSTART;TZID=America/Chicago:20261123T110000
-SUMMARY:Lynda Marie Jones — Funeral Service
+UID:lynda-service@foreverlyndamarie.com
+DTSTAMP:20261111T120000Z
+DTSTART:20261123T170000Z
+DTEND:20261123T183000Z
+SUMMARY:Lynda Marie Jones - Funeral Service
 LOCATION:Embassies of Christ\, 4285 Cleveland Street\, Gary\, IN 46408
-DESCRIPTION:All times Central Standard Time. No official end time has been
-  announced. Interment follows the funeral service. Repast follows interme
- nt\; location to be announced.
+DESCRIPTION:End time is estimated. Details: https://foreverlyndamarie.ver
+ cel.app
 END:VEVENT
 END:VCALENDAR
