@@ -437,7 +437,7 @@ header{border-bottom:1px solid #ad88534d}
     height: 100%;
     max-width: none;
     object-fit: cover;
-    object-position: 82% 27%;
+    object-position: 89% 27%;
   }
   .hero-copy {
     position: relative;
@@ -743,4 +743,16 @@ header{border-bottom:1px solid #ad88534d}
 }
 @media (max-width: 360px) {
   .hero #memorial-name { font-size: 56px !important; }
+}
+
+
+/* Mobile-only final polish: keep menu, remove duplicate small name, shift
+   approved memorial collage gently left within the portrait viewport. */
+@media (max-width: 720px) {
+  header {
+    justify-content: flex-end;
+  }
+  header > a.brand {
+    display: none !important;
+  }
 }
