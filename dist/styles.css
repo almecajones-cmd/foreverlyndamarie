@@ -68,3 +68,105 @@ main{background:#26051b}.hero{width:100%;max-width:calc((100svh - 64px)*1.776833
 @media(min-width:721px){main{background:var(--ivory)}.hero{box-shadow:0 0 0 100vmax #26051b;clip-path:inset(0 -100vmax)}}
 body{font-size:18px;line-height:1.65;--muted:#484047;--fuchsia:#86104c}p,.faqs p,.attire p,.venue-body p,.repast p,.schedule p:not(.time),.calendar-note,.sympathy .funeral-home{font-size:18px!important;line-height:1.65}.eyebrow{color:#781344}.hero .eyebrow{color:#edd59e}.hero .essentials{font-size:clamp(12px,1.15cqw,18px)!important;line-height:1.5;margin:10px 0}.hero-copy{top:19%}.hero .legacy{margin:1cqw 0}.hero h1{margin-bottom:1cqw}nav{gap:20px;font-size:14px}.menu-toggle{width:auto;padding:0 10px;font-size:16px}.attire-row{padding:24px 0;border-top:1px solid var(--line)}.calendar-button,.schedule a,#copy-address{display:inline-flex;align-items:center;min-height:44px;padding:8px 14px;border:1px solid #806b77;border-radius:4px;font-size:16px}.delivery{margin:30px auto;max-width:650px;padding:28px;border:1px solid var(--line)}address{font-style:normal;margin:20px 0}button{font:inherit;cursor:pointer}.updated{text-align:center;margin:0;padding:24px;background:var(--ivory)}[id]{scroll-margin-top:90px}nav a[aria-current]{text-decoration:underline;color:var(--gold)}@media(min-width:1024px){.fuchsia-title{position:sticky;top:100px;align-self:start}}@media(max-width:1000px){header nav{gap:12px;font-size:12px}}@media(max-width:720px){.schedule{grid-template-columns:1fr;border-left:1px solid var(--line);padding-left:20px}.hero .actions{flex-direction:column}.hero .button{width:100%;min-height:48px}.hero .essentials{font-size:16px!important}.hero-copy{padding:20px 24px}.hero h1{margin-bottom:18px}.hero .life-dates p{font-size:17px!important}nav a{min-height:44px}header{height:68px}nav{top:68px}}@media(prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important;scroll-behavior:auto!important}}
 @font-face{font-family:'Source Sans 3';font-style:normal;font-weight:400;font-display:swap;src:url(https://fonts.gstatic.com/s/sourcesans3/v20/nwpBtKy2OAdR1K-IwhWudF-R9QMylBJAV3Bo8Ky461EN.ttf) format('truetype')}@font-face{font-family:'Source Sans 3';font-style:normal;font-weight:600;font-display:swap;src:url(https://fonts.gstatic.com/s/sourcesans3/v20/nwpBtKy2OAdR1K-IwhWudF-R9QMylBJAV3Bo8Kxm7FEN.ttf) format('truetype')}body{font-family:'Source Sans 3',Arial,sans-serif}.hero .life-dates p{font-size:clamp(12px,1.3cqw,18px)!important}.hero .legacy{font-size:clamp(13px,1.4cqw,20px)!important}.hero .eyebrow{font-size:clamp(11px,1.35cqw,18px)!important}.hero .essentials{color:#fff0d5}.calendar-note{color:#484047}.schedule a{color:#3c1830}.menu-toggle{min-width:64px}a:focus-visible,button:focus-visible,summary:focus-visible{outline:3px solid #86104c;outline-offset:4px}header :focus-visible,.hero :focus-visible{outline-color:#f2ce7e}@media(min-width:721px) and (max-width:1100px){.hero h1{font-size:5.8cqw}.hero-copy{top:18%;left:5%;width:37%}.hero .essentials{font-size:12px!important}.hero .legacy{margin:8px 0}.hero .life-dates p{line-height:1.3!important}}@media(max-width:720px){.hero .eyebrow{font-size:13px!important}.hero .life-dates p{font-size:17px!important}.hero .legacy{font-size:19px!important}.hero .essentials{font-size:16px!important}.hero h1 em{font-size:70px}.hero h1{margin-bottom:12px}.hero-copy{padding-top:15px}.hero .legacy{margin:12px 0}}
+
+
+/* Editorial revision: unified guest journey and supplied Cloudinary assets */
+header{height:68px;padding-inline:clamp(22px,4.5vw,85px);background:#28091f}
+header .brand{font-family:'Cormorant Garamond',Georgia,serif;font-size:clamp(22px,2vw,28px);font-weight:500;letter-spacing:.025em;white-space:nowrap}
+header .brand span{color:#e9c993}
+header nav{gap:clamp(13px,2vw,29px);font-family:'Source Sans 3',Arial,sans-serif;font-size:14px;letter-spacing:.012em;font-weight:400}
+.hero h1 .given-name{letter-spacing:.045em;font-weight:500}
+.hero h1 em{font-size:1.37em;line-height:1.04}
+.hero .button{font-family:'Cormorant Garamond',Georgia,serif;font-weight:500;letter-spacing:.015em}
+.plan-section{max-width:1250px;background:var(--ivory);padding-top:80px;padding-bottom:95px}
+.plan-section .section-heading{align-items:end}
+.plan-section .section-heading h2{margin-bottom:14px}
+.plan-introduction{font:23px/1.35 'Cormorant Garamond',Georgia,serif;color:#65565d;max-width:490px}
+.plan-section .date-label{text-align:right}
+.plan-section .date-label span{font:14px/1.5 'Source Sans 3',Arial,sans-serif;display:block;color:#62535c;margin-top:8px}
+.plan-section .schedule{margin-top:36px;display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:0;border-top:1px solid #d9cbc9;border-bottom:1px solid #d9cbc9}
+.plan-section .schedule article{padding:27px 19px 26px 0;display:flex;flex-direction:column;align-items:flex-start;min-width:0}
+.plan-section .schedule article+article{padding-left:20px;border-left:1px solid #e4d9d7}
+.plan-section .step{font:600 11px/1.4 'Source Sans 3',Arial,sans-serif;letter-spacing:.14em;text-transform:uppercase;color:#92104f}
+.plan-section .schedule .time{margin:20px 0 8px;font:600 18px/1.3 'Source Sans 3',Arial,sans-serif;color:#2c1825}
+.plan-section .schedule .time span{font-size:13px;font-weight:400;white-space:nowrap;color:#61545c}
+.plan-section .schedule h3{font:500 26px/1.12 'Cormorant Garamond',Georgia,serif;margin:6px 0 12px}
+.plan-section .schedule p:not(.time){font-size:15px!important;line-height:1.5;color:#665c61;margin:3px 0 18px}
+.plan-section .schedule a{font-size:14px;line-height:1.45;min-height:30px;margin-top:9px}
+.plan-section .schedule .schedule-location{font-weight:600;color:#86104c}
+.plan-section .schedule a[download]{font-weight:400;color:#382633;text-decoration:underline}
+.plan-locations{margin-top:55px;scroll-margin-top:92px}
+.plan-locations-heading{display:flex;justify-content:space-between;align-items:end;gap:36px;margin-bottom:24px}
+.plan-locations-heading .eyebrow{color:#8c2156;margin-bottom:5px}
+.plan-locations-heading h3{font:500 clamp(31px,3vw,42px)/1.2 'Cormorant Garamond',Georgia,serif;margin:0}
+.plan-locations-heading>p{font-size:15px!important;line-height:1.5;max-width:340px;color:#62545e;margin-bottom:0}
+.plan-section .venues{margin:0;gap:24px;grid-template-columns:repeat(2,minmax(0,1fr))}
+.plan-section .venue{background:#fffdfa;border:1px solid #eadfd8;box-shadow:0 2px 20px #2a13200a;scroll-margin-top:88px}
+.plan-section .venue img{height:280px;width:100%;object-fit:contain;object-position:center;background:#e8e2dd}
+.plan-section .venue-body{padding:25px 28px 27px}
+.plan-section .venue-body h3{font:500 clamp(24px,2vw,31px)/1.18 'Cormorant Garamond',Georgia,serif;margin-bottom:11px}
+.plan-section .venue-body p{font-size:16px!important;margin-bottom:9px}
+.plan-section .venue-body .eyebrow{font-size:11px!important;letter-spacing:.14em}
+.plan-section .map-links{margin-top:18px}
+.plan-section .map-links a{font-size:14px;min-height:38px}
+.plan-section .repast{display:grid;grid-template-columns:.65fr 1.35fr;gap:30px;padding:26px 30px;margin-top:22px;border:1px solid #e5d5da;background:#f6eef1;scroll-margin-top:88px}
+.plan-section .repast .eyebrow{margin-bottom:9px;color:#8c2156}
+.plan-section .repast h3{font:500 33px/1.1 'Cormorant Garamond',Georgia,serif;margin:0}
+.plan-section .repast p{font-size:16px!important;line-height:1.55;margin:0 0 8px}
+.plan-section .repast .repast-status{font-weight:600;color:#793c59}
+.plan-bottom{display:flex;align-items:center;justify-content:space-between;gap:20px;margin-top:29px}
+.plan-bottom .calendar-note{font-size:13px!important;margin:0}
+.plan-bottom .calendar-button{display:inline-flex;align-items:center;padding:9px 18px;min-height:44px;border:1px solid #806b77;border-radius:4px;text-decoration:none;white-space:nowrap;font-size:14px}
+.fuchsia-editorial{display:grid;grid-template-columns:minmax(250px,.84fr) minmax(0,1.16fr);gap:clamp(28px,5vw,78px);align-items:start;padding-top:93px;padding-bottom:90px;max-width:1250px}
+.fuchsia-editorial .fuchsia-art{position:sticky;top:98px;align-self:start;margin:0}
+.fuchsia-editorial .fuchsia-art img{display:block;width:100%;height:auto;max-height:780px;object-fit:contain;box-shadow:0 18px 38px #300d251a;border-radius:2px}
+.fuchsia-editorial .fuchsia-title{position:static;top:auto}
+.fuchsia-editorial .fuchsia-title h2{font:500 clamp(44px,4.6vw,65px)/1.02 'Cormorant Garamond',Georgia,serif;margin:6px 0 30px}
+.fuchsia-editorial .fuchsia-title em{color:#89134e;font-style:italic}
+.fuchsia-editorial .fuchsia-title .eyebrow{color:#8b1650;font-size:12px;letter-spacing:.19em;margin-bottom:8px}
+.fuchsia-editorial .story{margin:0;max-width:675px}
+.fuchsia-editorial .story>p{font-size:17px!important;line-height:1.75;margin-bottom:18px}
+.fuchsia-editorial .story>p:nth-child(4),.fuchsia-editorial .story>p:last-of-type{font:italic 25px/1.4 'Cormorant Garamond',Georgia,serif!important;color:#87154d;margin:26px 0}
+.fuchsia-editorial .attire-callout{margin:36px 0 0;padding:26px 28px 23px;border:1px solid #e6ccd5;border-left:4px solid #901a55;background:#f7eff2}
+.fuchsia-editorial .attire-callout h3{font-size:31px;margin:0 0 14px}
+.fuchsia-editorial .attire-callout .eyebrow{font-size:11px!important;letter-spacing:.13em;color:#8a1950;margin:0 0 7px}
+.fuchsia-editorial .attire-callout p{font-size:16px!important;line-height:1.65;margin:0 0 15px}
+.fuchsia-editorial .attire-callout .signature{font:italic 19px/1.45 'Cormorant Garamond',Georgia,serif!important;margin-top:12px}
+.song-image{background:#2b0921;color:#f4d7a4;padding:0;margin:0;line-height:0;overflow:hidden}
+.song-image img{display:block;width:100%;max-width:none;height:auto;object-fit:contain}
+.song-image .staff,.song-image h2,.song-image p{display:none}
+@media(max-width:1020px){
+ header nav{gap:12px;font-size:12px}
+ .plan-section .schedule{grid-template-columns:repeat(2,minmax(0,1fr))}
+ .plan-section .schedule article:nth-child(3){border-left:0;border-top:1px solid #e4d9d7;padding-left:0}
+ .plan-section .schedule article:nth-child(4){border-top:1px solid #e4d9d7}
+ .fuchsia-editorial{gap:32px;grid-template-columns:minmax(220px,.84fr) minmax(0,1.16fr)}
+}
+@media(max-width:720px){
+ header{height:68px;padding:0 20px}
+ header .brand{font-size:23px}
+ header nav{top:68px;font-size:15px;padding:18px 24px}
+ header nav a{display:block;min-height:44px;padding:10px 0}
+ .plan-section{padding-top:54px;padding-bottom:60px}
+ .plan-section .section-heading{display:block}
+ .plan-section .date-label{text-align:left;font-size:19px;margin-top:20px}
+ .plan-section .schedule{grid-template-columns:1fr;border-left:0;padding-left:0;margin-top:25px}
+ .plan-section .schedule article{padding:24px 3px!important;border-left:0!important;border-top:1px solid #e4d9d7}
+ .plan-section .schedule article:first-child{border-top:0}
+ .plan-locations{margin-top:45px}
+ .plan-locations-heading{display:block}
+ .plan-locations-heading>p{margin-top:14px;max-width:100%}
+ .plan-section .venues{grid-template-columns:1fr}
+ .plan-section .venue img{height:auto;max-height:340px}
+ .plan-section .repast{grid-template-columns:1fr;padding:23px 22px;gap:12px}
+ .plan-bottom{flex-direction:column;align-items:stretch}
+ .plan-bottom .calendar-button{justify-content:center}
+ .fuchsia-editorial{display:flex;flex-direction:column;gap:22px;padding-top:55px;padding-bottom:55px}
+ .fuchsia-editorial .fuchsia-art{position:static;order:0;width:100%}
+ .fuchsia-editorial .fuchsia-art img{max-height:380px;object-fit:cover;object-position:center}
+ .fuchsia-editorial .fuchsia-article{order:1}
+ .fuchsia-editorial .fuchsia-title h2{font-size:49px;margin-bottom:22px}
+ .fuchsia-editorial .story>p{font-size:16px!important}
+ .fuchsia-editorial .attire-callout{padding:20px}
+ .song-image img{width:100%;height:auto}
+}
