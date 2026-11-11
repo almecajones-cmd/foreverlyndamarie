@@ -32,12 +32,98 @@ if c['repast']['venue']:rep.append(fragment('<h3>'+c['repast']['venue']+'</h3><p
 s.select_one('.calendar-note').clear();s.select_one('.calendar-note').append(fragment('End times are estimates. <a class="calendar-button" href="all-events.ics" download>Add all to calendar</a>'))
 s.select_one('.schedule').insert_after(fragment('<div class="attire-row"><h3>Attire</h3><p>'+attire+'</p><a href="#fuchsia">Why?</a></div>'))
 faqs=s.select_one('.faqs');faqs.clear()
-answers=[('When should I arrive?',f'Visitation and viewing begin at {c["viewing"]["label"]} CT. The funeral service begins at {c["service"]["label"]} CT. Please allow time to arrive and be seated.'),('What time zone should I use?','Gary is on Central Time, one hour behind Indianapolis. Visitation is 10:00 AM CT (11:00 AM ET); the funeral service is 11:00 AM CT (12:00 PM ET).'),('What should I wear?',attire),('Where do I park?','The church has an open parking lot.'),('Is the graveside open to everyone?','Yes, to family and friends.'),('How far is the cemetery from the church?','About a 12-minute drive. Directions are in <a href="#locations">Locations</a>.'),('Will the service be livestreamed or recorded?','No. We hope you can join us in person.'),('Where do I send flowers, cards, or letters?','To the church, at the address in <a href="#sympathy">Expressions of Sympathy</a>.'),('What should I expect at the cemetery?','The graveside is outdoors in late November. Dress warmly and wear sturdy shoes.')]
+answers=[('When should I arrive?',f'Visitation and viewing begin at {c["viewing"]["label"]} CT. The funeral service begins at {c["service"]["label"]} CT. Please allow time to arrive and be seated.'),('What time zone should I use?','Gary is on Central Time, one hour behind Indianapolis. Visitation is 10:00 AM CT (11:00 AM ET); the funeral service is 11:00 AM CT (12:00 PM ET).'),('What should I wear?',attire),('Is the graveside open to everyone?','Yes, to family and friends.'),('How do I get to the cemetery?','Find the address and map links in <a href="#locations">Plan Your Visit</a>.'),('What should I expect at the cemetery?','The graveside is outdoors in late November. Dress warmly and wear sturdy shoes.')]
 for q,a in answers:faqs.append(fragment(f'<details open><summary>{q}</summary><p>{a}</p></details>'))
-s.select_one('#sympathy').append(fragment(f'<article class="delivery"><h3>Send flowers, cards, or letters</h3><p>Flowers, letters, and cards all go to the church.</p><address id="delivery-address">Lynda Jones Memorial Service<br>Embassies of Christ<br>4285 Cleveland Street<br>Gary, IN 46408</address><button id="copy-address" type="button">Copy address</button> <a href="{churchmap}">Church map</a><p id="copy-status" role="status" aria-live="polite"></p></article>'))
+if c['flowerDelivery']['verified'] and c['flowerDelivery']['instructions']:\n s.select_one('#sympathy').append(fragment('<article class="delivery"><h3>Flower delivery information</h3><p>'+c['flowerDelivery']['instructions']+'</p></article>'))
 s.footer.insert_before(fragment('<p class="updated">Last updated: '+c['lastUpdated']+'</p>'))
 s.head.append(fragment('<link rel="icon" href="favicon.svg" type="image/svg+xml">'))
 s.select_one('meta[property="og:description"]')['content']='Service Monday, Nov 23, 2026 · Gary, Indiana. Details, directions, guest information.'
+
+# Family-approved editorial redesign (preserves the original memorial cover)
+from bs4 import BeautifulSoup
+nav=s.select_one('nav')
+nav.clear()
+nav.append(fragment('<a href="#service">Plan Your Visit</a><a href="#fuchsia">A Touch of Fuchsia</a><a href="#guests">Guest Information</a><a href="#sympathy">Expressions of Sympathy</a>'))
+plan=s.select_one('#service')
+plan['class']=['section','wrap','plan-section']
+plan.select_one('h2').string='Plan Your Visit'
+plan.select_one('.section-heading .eyebrow').string='Service, interment & repast'
+plan.select_one('.attire-row').decompose()
+old_locations=s.select_one('section#locations')
+venue_cards=old_locations.select_one('.venues').extract()
+repast_card=old_locations.select_one('#repast').extract()
+where=s.new_tag('div',attrs={'id':'locations','class':'plan-locations'})
+where.append(fragment('<p class="eyebrow">Where we will gather</p><h3>Locations &amp; Directions</h3><p class="plan-location-intro">Each venue is paired with the service schedule above, so you can plan your visit in one place.</p>'))
+where.append(venue_cards)
+for card,ident in zip(venue_cards.select('.venue'),['church','cemetery']):
+    card['id']=ident
+    for ptag in card.find_all('p'):
+        if ptag.get_text(' ',strip=True).startswith('About a 12-minute drive'):
+            ptag.decompose()
+repast_card.clear()
+repast_card.append(fragment('<p class="eyebrow">Following interment</p><h3>Repast</h3><p>Family and friends are invited to gather for a repast following the graveside service as we continue celebrating Lynda’s life and sharing memories together.</p><p class="repast-status">'+c['repast']['note']+'</p>'))
+if c['repast']['venue'] and c['repast']['address']:
+    repast_card.append(fragment('<p>'+c['repast']['venue']+' · '+c['repast']['address']+'</p>'))
+where.append(repast_card)
+plan.append(where)
+plan.append(plan.select_one('.calendar-note').extract())
+old_locations.decompose()
+for n,item in enumerate(plan.select('.schedule article')):
+    for ptag in item.find_all('p'):
+        if ptag.get_text(' ',strip=True).startswith('About a 12-minute drive'):
+            ptag.decompose()
+    for anchor in item.find_all('a'):
+        if 'maps' in anchor.get('href',''):
+            anchor.decompose()
+    if n<3:
+        item.append(fragment('<a class="schedule-location" href="#'+(['church','church','cemetery'][n])+'">View venue &amp; directions ↓</a>'))
+fuchsia=s.select_one('#fuchsia')
+fuchsia['class']=['section','wrap','fuchsia','fuchsia-editorial']
+fuchsia_art=s.new_tag('figure',attrs={'class':'fuchsia-art'})
+fuchsia_art.append(s.new_tag('img',attrs={'src':c['fuchsiaEditorial'],'alt':'Fuchsia satin and orchid, honoring the color Lynda chose for her farewell','loading':'lazy'}))
+fuchsia_copy=s.new_tag('div',attrs={'class':'fuchsia-article'})
+fuchsia_title=fuchsia.select_one('.fuchsia-title').extract()
+fuchsia_title.select_one('.color-mark').decompose()
+fuchsia_title.select_one('h2').clear()
+fuchsia_title.select_one('h2').append(fragment('A Touch of <em>Fuchsia</em>'))
+fuchsia_story=fuchsia.select_one('.story').extract()
+fuchsia_attire=fuchsia_story.select_one('.attire')
+fuchsia_attire['class']=['attire','attire-callout']
+fuchsia_attire.clear()
+fuchsia_attire.append(fragment('<p class="eyebrow">A respectful tribute</p><h3>Attire &amp; Color Guidance</h3><p>Our immediate family will wear black in honor of Mom, allowing the beautiful fuchsia she selected to remain uniquely hers.</p><p>Family and friends are welcome to wear respectful funeral attire. We kindly ask that guests avoid fuchsia dresses or predominantly fuchsia outfits, as this color has been reserved as a special tribute to Lynda.</p><p class="signature">With gratitude,<br>The Family of Lynda Marie Jones</p>'))
+fuchsia_copy.append(fuchsia_title)
+fuchsia_copy.append(fuchsia_story)
+fuchsia.clear()
+fuchsia.append(fuchsia_art)
+fuchsia.append(fuchsia_copy)
+song=s.select_one('#song')
+song.clear()
+song['class']=['song','song-image']
+song['aria-label']='Her Song Lives On, a tribute to Lynda Marie Jones and her love of singing'
+song.append(s.new_tag('img',attrs={'src':c['songBanner'],'alt':'Her Song Lives On memorial banner featuring Lynda singing, with warm gold lettering and plum orchids','loading':'lazy'}))
+
+
+# Final approved public-facing memorial layout and contact details
+hero=s.select_one('#home')
+hero_h1=hero.select_one('#memorial-name')
+hero_h1.clear()
+hero_h1.append(fragment('<span class="given-name">Lynda</span><span class="middle-name">Marie</span><em>Jones</em>'))
+for old in hero.select('.life-dates, .essentials'): old.decompose()
+hero.select_one('.primary').string='Plan Your Visit'
+strip=fragment('<section class="arrival-strip" aria-label="Service date and time"><div class="arrival-strip-inner"><p class="eyebrow">Join us in celebrating her life</p><h2>'+c['dateLabel']+'</h2><div class="arrival-facts"><div><span>Visitation &amp; Viewing</span><strong>'+c['viewing']['label']+'</strong></div><div><span>Funeral Service</span><strong>'+c['service']['label']+'</strong></div></div><p class="arrival-location">All times Central · Embassies of Christ · Gary, Indiana</p></div></section>')
+hero.insert_after(strip)
+inv=s.select_one('.invitation')
+inv.select_one('.eyebrow').string='A Note From Our Family'
+inv.append(fragment('<p class="invitation-cta"><a class="button invitation-button" href="#service">Plan Your Visit →</a></p>'))
+faqs=s.select_one('.faqs')
+faqs.insert(0,fragment('<details><summary>Where may I send flowers, cards, or letters?</summary><p>Address your delivery to '+c['correspondence']['addressee']+', '+c['correspondence']['venue']+', '+c['correspondence']['address']+', '+c['correspondence']['cityStateZip']+'. <a href="#sympathy">View the full mailing information</a>. Please confirm floral receiving instructions before arranging a delivery.</p></details>'))
+sympathy=s.select_one('#sympathy')
+sympathy.append(fragment('<article class="delivery"><p class="eyebrow">Flowers, Cards &amp; Letters</p><h3>Send Your Expressions of Love</h3><p>Please address flowers, cards, and letters for the service as follows:</p><address id="delivery-address"><strong>'+c['correspondence']['addressee']+'</strong><br>'+c['correspondence']['venue']+'<br>'+c['correspondence']['address']+'<br>'+c['correspondence']['cityStateZip']+'</address><div class="delivery-actions"><button id="copy-address" type="button">Copy Address</button><a target="_blank" rel="noopener" href="'+churchmap+'">Church Directions ↗</a></div><p class="delivery-note">For floral arrangements, please confirm receiving hours and delivery instructions with the church or funeral home before scheduling delivery.</p><p id="copy-status" role="status" aria-live="polite"></p></article>'))
+contact_mail=e(c['contact'].get('email') or '')
+if c['contact'].get('authorized') and contact_mail:
+ contact=fragment('<section class="section wrap contact-family" id="contact"><p class="eyebrow">We\'re here to help</p><h2>Questions for Our Family?</h2><p>For additional questions about the arrangements, please contact the family privately. This option opens your email app with your message ready to send.</p><form id="family-contact" action="mailto:'+contact_mail+'" method="get"><div class="contact-fields"><label>Your name <input name="name" required autocomplete="name" maxlength="120" placeholder="Your name"></label><label>Your email <input name="email" type="email" required autocomplete="email" maxlength="200" placeholder="Your email address"></label></div><label>Your question <textarea name="question" required maxlength="1500" rows="4" placeholder="How can we help?"></textarea></label><button type="submit">Compose Email to Family ↗</button><p class="contact-note">This opens your email application; please press Send there to deliver your message. No messages are stored on this website.</p></form></section>')
+ s.select_one('#song').insert_before(contact)
+
 (out/'index.html').write_text(str(s))
 base=['BEGIN:VCALENDAR','VERSION:2.0','PRODID:-//Forever Lynda Marie//Memorial//EN','CALSCALE:GREGORIAN'];events=[]
 for k,title in [('viewing','Visitation and Viewing'),('service','Funeral Service')]:
