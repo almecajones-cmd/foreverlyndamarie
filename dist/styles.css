@@ -238,3 +238,123 @@ header{border-bottom:1px solid #ad88534d}
  .delivery{padding:20px}
  .delivery address{font-size:20px}
 }
+
+
+/* Final homepage cover and ceremonial name treatment — November 11, 2026.
+   The new Cloudinary artwork is displayed unaltered. The left floral accent
+   reuses a masked detail of the same artwork, rather than modifying any portrait. */
+@media (min-width: 721px) {
+  .hero { isolation: isolate; }
+  .hero::before {
+    background-image:
+      linear-gradient(90deg, rgba(45,4,28,.54), rgba(45,4,28,.16) 45%, rgba(45,4,28,.50)),
+      url("https://res.cloudinary.com/v78xwhwr/image/upload/v1794392582/303B1D7F-0611-49D2-828A-61C78CD65D62_lviu44.png");
+    background-position: center;
+    background-size: cover;
+  }
+  .hero::after {
+    content: "";
+    position: absolute;
+    left: 0.4%;
+    bottom: 3%;
+    width: 18%;
+    height: 27%;
+    background-image: url("https://res.cloudinary.com/v78xwhwr/image/upload/v1794392582/303B1D7F-0611-49D2-828A-61C78CD65D62_lviu44.png");
+    background-repeat: no-repeat;
+    background-size: 530% auto;
+    background-position: right bottom;
+    -webkit-mask-image: radial-gradient(ellipse at 50% 55%, black 17%, rgba(0,0,0,.75) 35%, transparent 74%);
+    mask-image: radial-gradient(ellipse at 50% 55%, black 17%, rgba(0,0,0,.75) 35%, transparent 74%);
+    opacity: .50;
+    pointer-events: none;
+    z-index: 1;
+  }
+  .hero-copy {
+    top: 14.5%;
+    left: 4.6%;
+    width: 38.5%;
+    z-index: 2;
+  }
+  .hero .eyebrow {
+    font-size: 1.58cqw !important;
+    letter-spacing: .19em;
+    margin-bottom: 1.5cqw;
+  }
+  .hero h1 {
+    font-size: 8cqw !important;
+    line-height: 1;
+    margin: 0 0 .7cqw;
+    letter-spacing: .008em;
+  }
+  .hero h1 .given-name {
+    font-size: .85em !important;
+    letter-spacing: .06em;
+  }
+  .hero h1 .middle-name {
+    font-size: .29em !important;
+    line-height: 1.25;
+    letter-spacing: .34em;
+    padding-left: .34em;
+  }
+  .hero h1 em {
+    font-size: 1.27em !important;
+    line-height: .96;
+    margin-top: .02em;
+  }
+  .hero .life-years {
+    margin: 1.0cqw 0 1.35cqw;
+    font: 500 2.15cqw/1.15 'Cormorant Garamond', Georgia, serif !important;
+    color: #f2d49b;
+    letter-spacing: .13em;
+    display: flex;
+    align-items: center;
+    gap: 1.2cqw;
+    justify-content: center;
+    white-space: nowrap;
+  }
+  .hero .life-years::before, .hero .life-years::after {
+    content: "";
+    display: block;
+    width: 4.2cqw;
+    height: 1px;
+    background: linear-gradient(90deg,transparent,#d2aa69);
+  }
+  .hero .life-years::after {
+    background: linear-gradient(90deg,#d2aa69,transparent);
+  }
+  .hero .legacy {
+    font: italic 1.73cqw/1.3 'Cormorant Garamond', Georgia, serif !important;
+    margin: .5cqw 0 1.45cqw;
+  }
+  .hero .actions { gap: 1.0cqw; }
+  .hero .button { font-size: 1.12cqw !important; padding: .85cqw 1.35cqw; }
+}
+@media (max-width: 720px) {
+  .hero h1 .given-name { font-size: 57px !important; }
+  .hero h1 .middle-name { font-size: 19px !important; letter-spacing: .37em; }
+  .hero h1 em { font-size: 92px !important; }
+  .hero .life-years {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 14px;
+    margin: 9px 0 15px;
+    font: 500 24px/1.2 'Cormorant Garamond',Georgia,serif !important;
+    letter-spacing: .12em;
+    color: #f2d49b;
+  }
+  .hero .life-years::before,.hero .life-years::after {
+    content: "";
+    width: 35px;
+    height: 1px;
+    background: #cba366;
+    opacity: .8;
+  }
+  .hero .eyebrow { font-size: 15px !important; }
+  .hero .legacy { font-size: 21px !important; }
+}
+@media (max-width: 370px) {
+  .hero h1 .given-name { font-size: 49px !important; }
+  .hero h1 em { font-size: 78px !important; }
+  .hero h1 .middle-name { font-size: 17px !important; }
+}
