@@ -111,7 +111,9 @@ hero_h1.append(fragment('<span class="given-name">Lynda</span><span class="middl
 for years in hero.select('.life-years'): years.decompose()
 hero_h1.insert_after(fragment('<p class="life-years"><span>1956 – 2026</span></p>'))
 hero.select_one('.hero-art img')['src']=c['artwork']
-s.select_one('meta[property="og:image"]')['content']=c['artwork']
+s.select_one('meta[property="og:image"]')['content']=c.get('socialCard',c['artwork'])
+s.select_one('meta[property="og:image:secure_url"]')['content']=c.get('socialCard',c['artwork'])
+s.select_one('meta[name="twitter:image"]')['content']=c.get('socialCard',c['artwork'])
 for old in hero.select('.life-dates, .essentials'): old.decompose()
 hero.select_one('.primary').string='Plan Your Visit'
 strip=fragment('<section class="arrival-strip" aria-label="Service date and time"><div class="arrival-strip-inner"><p class="eyebrow">Join us in celebrating her life</p><h2>'+c['dateLabel']+'</h2><div class="arrival-facts"><div><span>Visitation &amp; Viewing</span><strong>'+c['viewing']['label']+'</strong></div><div><span>Funeral Service</span><strong>'+c['service']['label']+'</strong></div></div><p class="arrival-location">All times Central · Embassies of Christ · Gary, Indiana</p></div></section>')
