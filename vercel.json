@@ -13,13 +13,15 @@
         {
           "key": "Referrer-Policy",
           "value": "strict-origin-when-cross-origin"
-        },
-        {
-          "key": "X-Robots-Tag",
-          "value": "noindex, nofollow"
         }
       ]
     }
   ],
-  "installCommand": ""
+  "installCommand": "",
+  "rewrites": [
+    {
+      "source": "/social-preview.jpg",
+      "destination": "https://res.cloudinary.com/v78xwhwr/image/upload/f_jpg,q_88,c_fill,w_1200,h_630,g_center/l_text%3AJost@google_17_400_letter_spacing_3%3ACELEBRATING%20THE%20LIFE%20OF,co_rgb%3Af5d7a1/fl_layer_apply,g_north_west,x_92,y_124/l_text%3APlayfair%20Display@google_83_600_letter_spacing_7%3ALYNDA,co_rgb%3Af3dbaf/fl_layer_apply,g_north_west,x_101,y_173/l_text%3APinyon%20Script@google_103_400%3AMarie,co_rgb%3Aefd39b/fl_layer_apply,g_north_west,x_161,y_275/l_text%3APlayfair%20Display@google_45_500_letter_spacing_7%3AJONES,co_rgb%3Af3dbaf/fl_layer_apply,g_north_west,x_156,y_392/l_text%3ACormorant%20Garamond@google_30_500_letter_spacing_4%3A1956%20-%202026,co_rgb%3Af0d5a1/fl_layer_apply,g_north_west,x_160,y_465/l_text%3ACormorant%20Garamond@google_24_400%3AHer%20Strength.%20Our%20Foundation.%20Her%20Legacy.,co_rgb%3Af1dfea/fl_layer_apply,g_north_west,x_76,y_535/v1794392582/303B1D7F-0611-49D2-828A-61C78CD65D62_lviu44.png"
+    }
+  ]
 }
