@@ -853,3 +853,30 @@ header{border-bottom:1px solid #ad88534d}
   .plan-section #repast-rsvp-form .rsvp-connections label { display: flex; }
   .plan-section #repast-rsvp-form button { width: 100%; }
 }
+
+/* Real RSVP submission: hidden honeypot and readable confirmation */
+.plan-section .rsvp-honeypot {
+  position: absolute !important;
+  width: 1px !important;
+  height: 1px !important;
+  padding: 0 !important;
+  margin: -1px !important;
+  overflow: hidden !important;
+  clip: rect(0,0,0,0) !important;
+  white-space: nowrap !important;
+  border: 0 !important;
+}
+.plan-section #repast-rsvp-form[aria-busy="true"] button {
+  cursor: progress;
+  opacity: .8;
+}
+.plan-section #repast-rsvp-form button:disabled { cursor: default; opacity: .8; }
+.plan-section #repast-rsvp-form .rsvp-confirmed {
+  border: 1px solid #ad9c75;
+  border-left: 4px solid #976d28;
+  background: #f8f1e6;
+  padding: 15px 17px;
+  font-size: 15px !important;
+  font-weight: 600;
+  color: #302024 !important;
+}
