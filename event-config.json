@@ -31,9 +31,15 @@
     }
   ],
   "repast": {
-    "venue": null,
-    "address": null,
-    "note": "Location and additional details will be announced."
+    "venue": "Innsbrook Country Club",
+    "address": "6701 Taft Street, Merrillville, IN 46410",
+    "start": "13:30",
+    "end": "15:30",
+    "seatBy": "13:15",
+    "timezone": "America/Chicago",
+    "meal": "Plated meal",
+    "source": "https://res.cloudinary.com/v78xwhwr/image/upload/v1794789310/IMG_6856_je4yrr.jpg",
+    "note": "Repast is scheduled from 1:30–3:30 PM CST. All guests must be seated by 1:15 PM CST for the plated meal."
   },
   "contact": {
     "authorized": true,
@@ -47,7 +53,7 @@
     "instructions": null
   },
   "attire": "Our immediate family will wear black in honor of Mom, allowing the beautiful fuchsia she selected to remain uniquely hers. Family and friends are welcome to wear respectful funeral attire, and small touches of fuchsia—a pendant, scarf, flower, or pin—are welcome. We kindly ask guests to avoid fuchsia dresses or predominantly fuchsia outfits, reserving that color as a special tribute to Lynda.",
-  "lastUpdated": "November 11, 2026",
+  "lastUpdated": "November 15, 2026",
   "fuchsiaEditorial": "https://res.cloudinary.com/v78xwhwr/image/upload/v1794387709/lynda_touch_of_fuchsia_editorial_ef6uoh.png",
   "songBanner": "https://res.cloudinary.com/v78xwhwr/image/upload/v1794387873/her_song_lives_on_wide_2560_hmjsez.webp",
   "correspondence": {
