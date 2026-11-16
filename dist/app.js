@@ -41,7 +41,7 @@ if (repastForm) {
 
   const countValue = field => {
     const raw = String(field.value ?? '').trim();
-    if (!/^\\d+$/.test(raw)) return NaN;
+    if (!/^\d+$/.test(raw)) return NaN;
     const n = Number(raw);
     return Number.isSafeInteger(n) ? n : NaN;
   };
