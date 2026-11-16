@@ -24,77 +24,162 @@ document.querySelector('#family-contact')?.addEventListener('submit',event=>{
 });
 
 
-// Private repast RSVP submission. Only a successful server response counts as saved.
+// Private repast RSVP: calculated totals, conditional City of Gary count, and secure submission.
+// An RSVP is recorded only after the private server returns a success response.
 const repastPageLoadedAt = Date.now();
-document.querySelector('#repast-rsvp-form')?.addEventListener('submit', async event => {
-  event.preventDefault();
-  const form = event.currentTarget;
+const repastForm = document.querySelector('#repast-rsvp-form');
+if (repastForm) {
+  const garyValue = 'City of Gary (coworker or colleague)';
+  const garyFields = document.querySelector('#rsvp-gary-fields');
+  const garyCountField = repastForm.elements.namedItem('garyCount');
+  const departmentField = repastForm.elements.namedItem('department');
+  const adultsField = repastForm.elements.namedItem('adults');
+  const childrenField = repastForm.elements.namedItem('children');
+  const totalLabel = document.querySelector('#repast-total');
   const status = document.querySelector('#repast-rsvp-status');
   const button = document.querySelector('#repast-submit');
-  if (!form.reportValidity()) {
-    if (status) status.textContent = 'Please complete the required fields before submitting.';
-    return;
-  }
-  const fd = new FormData(form);
-  const val = name => String(fd.get(name) || '').trim();
-  const count = Number(val('partyCount'));
-  const payload = {
-    contactName: val('contactName'),
-    contactEmail: val('contactEmail'),
-    contactPhone: val('contactPhone'),
-    partyCount: count,
-    guestNames: val('guestNames'),
-    primaryConnection: val('primaryConnection'),
-    otherConnections: fd.getAll('connections').map(String),
-    seatingNotes: val('seatingNotes'),
-    dietaryNotes: val('dietaryNotes'),
-    website: val('website'),
-    pageLoadedAt: repastPageLoadedAt
+
+  const countValue = field => {
+    const raw = String(field.value ?? '').trim();
+    if (!/^\\d+$/.test(raw)) return NaN;
+    const n = Number(raw);
+    return Number.isSafeInteger(n) ? n : NaN;
   };
-  if (!payload.contactName || !payload.contactEmail || !payload.guestNames ||
-      !payload.primaryConnection || !Number.isInteger(count) || count < 1 || count > 20) {
-    if (status) status.textContent = 'Please check your name, email, party size, guest names, and connection to Lynda.';
-    return;
+  const selectedConnection = () =>
+    repastForm.querySelector('input[name="primaryConnection"]:checked')?.value || '';
+  const totalGuests = () => countValue(adultsField) + countValue(childrenField);
+
+  function validateGaryCount() {
+    garyCountField.setCustomValidity('');
+    if (selectedConnection() !== garyValue) return true;
+    const count = countValue(garyCountField);
+    const total = totalGuests();
+    if (!Number.isSafeInteger(count) || count < 1 ||
+        !Number.isSafeInteger(total) || count > total) {
+      garyCountField.setCustomValidity('Enter at least 1 City of Gary colleague, not more than your total attending.');
+      return false;
+    }
+    return true;
   }
-  form.setAttribute('aria-busy', 'true');
-  button.disabled = true;
-  button.textContent = 'Saving Your RSVP…';
-  if (status) status.textContent = 'Saving your RSVP securely…';
-  try {
-    const ctrl = new AbortController();
-    const timeoutId = setTimeout(() => ctrl.abort(), 18000);
-    let response;
+
+  function updateTotals() {
+    const adults = countValue(adultsField);
+    const children = countValue(childrenField);
+    if (Number.isSafeInteger(adults) && adults >= 1 &&
+        Number.isSafeInteger(children) && children >= 0 &&
+        Number.isSafeInteger(adults + children)) {
+      totalLabel.textContent = 'Total attending: ' + (adults + children) +
+        ' (' + adults + ' adult' + (adults === 1 ? '' : 's') +
+        ', ' + children + ' child' + (children === 1 ? '' : 'ren') + ')';
+    } else {
+      totalLabel.textContent = 'Enter your adult and child counts to calculate your total.';
+    }
+    validateGaryCount();
+  }
+
+  function updateGaryFields() {
+    const selected = selectedConnection() === garyValue;
+    garyFields.hidden = !selected;
+    garyCountField.disabled = !selected;
+    garyCountField.required = selected;
+    departmentField.disabled = !selected;
+    if (!selected) {
+      garyCountField.value = '';
+      departmentField.value = '';
+    }
+    updateTotals();
+  }
+
+  repastForm.querySelectorAll('input[name="primaryConnection"]').forEach(input => {
+    input.addEventListener('change', updateGaryFields);
+  });
+  for (const field of [adultsField, childrenField, garyCountField]) {
+    field.addEventListener('input', updateTotals);
+    field.addEventListener('change', updateTotals);
+  }
+  updateGaryFields();
+
+  repastForm.addEventListener('submit', async event => {
+    event.preventDefault();
+    updateTotals();
+    if (!repastForm.reportValidity() || !validateGaryCount()) {
+      status.textContent = 'Please complete the required fields and check your adult, child, and City of Gary counts.';
+      return;
+    }
+    const fd = new FormData(repastForm);
+    const val = key => String(fd.get(key) || '').trim();
+    const adults = countValue(adultsField);
+    const children = countValue(childrenField);
+    const total = adults + children;
+    const connection = selectedConnection();
+    const isGary = connection === garyValue;
+    const garyCount = isGary ? countValue(garyCountField) : null;
+    if (!val('contactName') || !val('contactEmail') || !connection ||
+        !Number.isSafeInteger(adults) || adults < 1 ||
+        !Number.isSafeInteger(children) || children < 0 ||
+        !Number.isSafeInteger(total) || total > 500 ||
+        (isGary && (!Number.isSafeInteger(garyCount) || garyCount < 1 || garyCount > total))) {
+      status.textContent = 'Please check the required fields and your headcounts.';
+      return;
+    }
+
+    const payload = {
+      contactName: val('contactName'),
+      contactEmail: val('contactEmail'),
+      contactPhone: val('contactPhone'),
+      primaryConnection: connection,
+      garyCount: isGary ? garyCount : null,
+      department: isGary ? val('department') : '',
+      adults,
+      children,
+      guestNames: val('guestNames'),
+      website: val('website'),
+      pageLoadedAt: repastPageLoadedAt
+    };
+
+    repastForm.setAttribute('aria-busy', 'true');
+    button.disabled = true;
+    button.textContent = 'Saving Your RSVP…';
+    status.classList.remove('rsvp-confirmed');
+    status.textContent = 'Saving your RSVP securely…';
+
     try {
-      response = await fetch('https://zikpbudiofzapoiqaqpm.supabase.co/functions/v1/lynda-repast-rsvp', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        mode: 'cors',
-        cache: 'no-store',
-        body: JSON.stringify(payload),
-        signal: ctrl.signal
-      });
-    } finally {
-      clearTimeout(timeoutId);
-    }
-    const result = await response.json().catch(() => ({}));
-    if (!response.ok || result.ok !== true) {
-      throw new Error(result.error || 'We could not save your RSVP. Please try again.');
-    }
-    const reference = String(result.reference || '').slice(0, 8).toUpperCase();
-    if (status) {
-      status.textContent = 'RSVP RECEIVED — ' + count + ' guest' + (count === 1 ? '' : 's') +
-        ' saved for repast planning. Reference: ' + reference +
-        '. Thank you. The family will use your response for seating and meal counts. This is not a table assignment.';
+      const controller = new AbortController();
+      const timeout = setTimeout(() => controller.abort(), 18000);
+      let response;
+      try {
+        response = await fetch('https://zikpbudiofzapoiqaqpm.supabase.co/functions/v1/lynda-repast-rsvp', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          mode: 'cors',
+          cache: 'no-store',
+          body: JSON.stringify(payload),
+          signal: controller.signal
+        });
+      } finally {
+        clearTimeout(timeout);
+      }
+      const result = await response.json().catch(() => ({}));
+      if (!response.ok || result.ok !== true) {
+        throw new Error(result.error || 'We could not save your RSVP. Please try again.');
+      }
+      const reference = String(result.reference || '').slice(0, 8).toUpperCase();
+      status.textContent = 'RSVP RECEIVED — ' + adults +
+        ' adult' + (adults === 1 ? '' : 's') + ', ' + children +
+        ' child' + (children === 1 ? '' : 'ren') + ' (' + total +
+        ' attending). Reference: ' + reference +
+        '. Thank you. We will use your response only to plan this event.';
       status.classList.add('rsvp-confirmed');
+      button.textContent = 'RSVP Received ✓';
+      repastForm.querySelectorAll('input, textarea').forEach(field => field.disabled = true);
+      status.scrollIntoView({ behavior: 'smooth', block: 'center' });
+    } catch (error) {
+      status.textContent = error instanceof Error
+        ? error.message : 'Could not save your RSVP. Please try again.';
+      button.disabled = false;
+      button.textContent = 'Try Submitting Again';
+    } finally {
+      repastForm.removeAttribute('aria-busy');
     }
-    button.textContent = 'RSVP Received ✓';
-    form.querySelectorAll('input, select, textarea').forEach(field => field.disabled = true);
-    status?.scrollIntoView({ behavior: 'smooth', block: 'center' });
-  } catch (error) {
-    if (status) status.textContent = error instanceof Error ? error.message : 'Could not save RSVP. Please try again.';
-    button.disabled = false;
-    button.textContent = 'Try Submitting Again';
-  } finally {
-    form.removeAttribute('aria-busy');
-  }
-});
+  });
+}
