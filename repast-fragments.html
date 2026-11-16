@@ -15,12 +15,12 @@
 <section class="repast-rsvp" id="repast-rsvp" aria-labelledby="rsvp-title">
 <p class="eyebrow">Repast · Seating Planning</p>
 <h3 id="rsvp-title">Help Us Plan Your Table</h3>
-<p>To help seat family, friends, City of Gary coworkers, and those who shared music and church fellowship with Mom, please let us know how you knew Lynda and how many guests will attend with you. If you share more than one connection, you can select those too.</p>
+<p>Please submit one RSVP for your party. Your guest count, relationship to Lynda, and any meal accommodations will help us plan plated meals and family seating, including dedicated tables for City of Gary coworkers and other groups. Your responses are private and will not appear on the public website.</p>
 <p class="repast-rsvp-reminder"><strong>Meal: 1:30–3:30 PM CST · Every guest seated by 1:15 PM CST.</strong></p>
-<form id="repast-rsvp-form" action="mailto:almecajones@gmail.com" method="get">
+<form id="repast-rsvp-form" method="post" novalidate>
 <div class="rsvp-fields">
 <label>Your full name <input type="text" name="contactName" required maxlength="120" autocomplete="name" placeholder="Full name"/></label>
-<label>Your email <input type="email" name="contactEmail" required maxlength="200" autocomplete="email" placeholder="Email address"/></label>
+<label>Your email <input type="email" name="contactEmail" required maxlength="200" autocomplete="email" placeholder="Email address"/></label><label>Phone number (optional) <input type="tel" name="contactPhone" maxlength="30" autocomplete="tel" placeholder="For seating questions"/></label>
 <label>Number attending (including you) <input type="number" name="partyCount" required min="1" max="20" value="1"/></label>
 <label>How did you primarily know Lynda? <select name="primaryConnection" required><option value="" disabled selected>Choose the primary connection</option><option value="Family — by blood">Family — by blood</option><option value="Family — by marriage">Family — by marriage</option><option value="City of Gary — Police Department coworker">City of Gary — Police Department coworker</option><option value="City of Gary — coworker, other department">City of Gary — coworker, other department</option><option value="Church family">Church family</option><option value="Sang together / choir / music ministry">Sang together / choir / music ministry</option><option value="Childhood friend">Childhood friend</option><option value="Longtime friend">Longtime friend</option><option value="Neighbor / community friend">Neighbor / community friend</option><option value="Other">Other</option></select></label>
 </div>
@@ -32,9 +32,9 @@
 <label><input type="checkbox" name="connections" value="Sang together / choir"/> Sang with Lynda / choir</label>
 <label><input type="checkbox" name="connections" value="Childhood friend"/> Childhood friend</label>
 </fieldset>
-<label>Church, choir, City department, or other seating notes (optional) <textarea name="seatingNotes" rows="2" maxlength="600" placeholder="Example: City of Gary Police Department, choir name, or guests with different connections"></textarea></label>
-<button type="submit">Compose Repast RSVP Email ↗</button>
-<p id="repast-rsvp-status" role="status" aria-live="polite" class="rsvp-note">This form opens your email app with an RSVP ready to send. <strong>You must press Send in your email app.</strong> No RSVP is saved on this website, and sending an email is not a seating confirmation until the family replies.</p>
+<label>Church, choir, City department, or other seating notes (optional) <textarea name="seatingNotes" rows="2" maxlength="600" placeholder="Example: City of Gary Police Department, choir name, or guests with different connections"></textarea></label><label>Meal accommodations or food allergies (optional) <textarea name="dietaryNotes" rows="2" maxlength="600" placeholder="Let us know what the venue should prepare for"></textarea></label><div class="rsvp-honeypot" aria-hidden="true"><label>Website <input type="text" name="website" autocomplete="off" tabindex="-1"/></label></div>
+<button type="submit" id="repast-submit">Submit My RSVP</button>
+<p id="repast-rsvp-status" role="status" aria-live="polite" class="rsvp-note">Your response will be saved securely for family seating and meal planning. No email application is required. You will receive an on-screen confirmation when it has been received; your table assignment is not yet confirmed. We will use your information only to coordinate this event.</p>
 </form></section>
 
 <details data-repast-faq="1"><summary>Where and when is the repast?</summary><p>The repast will be held at Innsbrook Country Club, 6701 Taft Street, Merrillville, IN 46410, from 1:30 to 3:30 PM CST on Monday, November 23. Because a plated meal will be served, every guest must be seated by 1:15 PM CST. <a href="#repast-rsvp">Send your repast RSVP</a>.</p></details>
