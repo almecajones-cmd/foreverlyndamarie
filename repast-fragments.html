@@ -15,27 +15,43 @@
 <section class="repast-rsvp" id="repast-rsvp" aria-labelledby="rsvp-title">
 <p class="eyebrow">Repast · Seating Planning</p>
 <h3 id="rsvp-title">Help Us Plan Your Table</h3>
-<p>Please submit one RSVP for your party. Your guest count, relationship to Lynda, and any meal accommodations will help us plan plated meals and family seating, including dedicated tables for City of Gary coworkers and other groups. Your responses are private and will not appear on the public website.</p>
-<p class="repast-welcome">You are welcome whether you knew Lynda personally or are here simply to love and support someone grieving her loss. If you are attending to support someone, please mention their name in the seating notes so we can try to seat you together.</p>
+<p>We're not assigning seats. Your RSVP helps us set aside the right number of tables for family and for groups like City of Gary colleagues. Your responses are private and will not appear on the public website.</p>
 <p class="repast-rsvp-reminder"><strong>Meal: 1:30–3:30 PM CST · Every guest seated by 1:15 PM CST.</strong></p>
+<p class="repast-set-menu">The family is serving a set menu and is not able to accommodate individual dietary requests.</p>
 <form id="repast-rsvp-form" method="post" novalidate>
 <div class="rsvp-fields">
 <label>Your full name <input type="text" name="contactName" required maxlength="120" autocomplete="name" placeholder="Full name"/></label>
-<label>Your email <input type="email" name="contactEmail" required maxlength="200" autocomplete="email" placeholder="Email address"/></label><label>Phone number (optional) <input type="tel" name="contactPhone" maxlength="30" autocomplete="tel" placeholder="For seating questions"/></label>
-<label>Number attending (including you) <input type="number" name="partyCount" required min="1" max="20" value="1"/></label>
-<label>How are you connected to Lynda or her loved ones? <select name="primaryConnection" required><option value="" disabled selected>Choose the primary connection</option><option value="Family — by blood">Family — by blood</option><option value="Family — by marriage">Family — by marriage</option><option value="City of Gary — Police Department coworker">City of Gary — Police Department coworker</option><option value="City of Gary — coworker, other department">City of Gary — coworker, other department</option><option value="Church family">Church family</option><option value="Sang together / choir / music ministry">Sang together / choir / music ministry</option><option value="Childhood friend">Childhood friend</option><option value="Longtime friend">Longtime friend</option><option value="Neighbor / community friend">Neighbor / community friend</option><option value="Here to support someone who loved Lynda">Here to support someone who loved Lynda</option><option value="Other">Other</option></select></label>
+<label>Your email <input type="email" name="contactEmail" required maxlength="200" autocomplete="email" placeholder="Email address"/></label>
+<label>Phone number (optional) <input type="tel" name="contactPhone" maxlength="30" autocomplete="tel" placeholder="Phone number"/></label>
 </div>
-<label>Names of all guests in your party <textarea name="guestNames" required rows="3" maxlength="1200" placeholder="List every guest who will need a seat"></textarea></label>
-<fieldset class="rsvp-connections"><legend>Other connections (select any that apply)</legend>
-<label><input type="checkbox" name="connections" value="Family"/> Family</label>
-<label><input type="checkbox" name="connections" value="City of Gary coworker"/> City of Gary coworker</label>
-<label><input type="checkbox" name="connections" value="Church family"/> Church family</label>
-<label><input type="checkbox" name="connections" value="Sang together / choir"/> Sang with Lynda / choir</label>
-<label><input type="checkbox" name="connections" value="Childhood friend"/> Childhood friend</label>
+<fieldset class="rsvp-radio-group" aria-describedby="rsvp-relationship-help">
+<legend>How did you know Lynda? <span class="rsvp-required">(required, choose one)</span></legend>
+<p id="rsvp-relationship-help">Please select the one connection that best describes your party.</p>
+<div class="rsvp-radio-options">
+<label><input type="radio" name="primaryConnection" value="Family" required/> Family</label>
+<label><input type="radio" name="primaryConnection" value="City of Gary (coworker or colleague)"/> City of Gary (coworker or colleague)</label>
+<label><input type="radio" name="primaryConnection" value="Church family (including choir)"/> Church family (including choir)</label>
+<label><input type="radio" name="primaryConnection" value="Friend (childhood or longtime)"/> Friend (childhood or longtime)</label>
+<label><input type="radio" name="primaryConnection" value="Here to support the family"/> Here to support the family</label>
+<label><input type="radio" name="primaryConnection" value="Other"/> Other</label>
+</div>
 </fieldset>
-<label>Who are you attending to support, or who would you like to sit with? (optional) <textarea name="seatingNotes" rows="2" maxlength="600" placeholder="For example: supporting Willie, Ro-Sako, Almeca, or another loved one; City of Gary colleagues; choir friends"></textarea></label><label>Meal accommodations or food allergies (optional) <textarea name="dietaryNotes" rows="2" maxlength="600" placeholder="Let us know what the venue should prepare for"></textarea></label><div class="rsvp-honeypot" aria-hidden="true"><label>Website <input type="text" name="website" autocomplete="off" tabindex="-1"/></label></div>
+<div id="rsvp-gary-fields" class="rsvp-gary-fields" hidden>
+<label>How many in your party are City of Gary colleagues? <input type="number" name="garyCount" min="1" step="1" inputmode="numeric" disabled/></label>
+<p class="rsvp-field-help">Count only the City of Gary colleagues in your party. This cannot exceed your total guests.</p>
+<label>Department (optional) <input type="text" name="department" maxlength="160" placeholder="Department" disabled/></label>
+</div>
+<div class="rsvp-fields">
+<label>Number of adults, ages 13 and older (including you) <input type="number" name="adults" required min="1" step="1" inputmode="numeric" value="1"/></label>
+<label>Number of children, ages 3 through 12 <input type="number" name="children" required min="0" step="1" inputmode="numeric" value="0"/></label>
+</div>
+<p class="rsvp-field-help">Children are ages 3 through 12. Guests 13 and older count as adults.</p>
+<p id="repast-total" class="rsvp-total" role="status" aria-live="polite">Total attending: 1 (1 adult, 0 children)</p>
+<label>Names of all guests in your party (optional) <textarea name="guestNames" rows="3" maxlength="1200" placeholder="Guest names (optional)"></textarea></label>
+<div class="rsvp-honeypot" aria-hidden="true"><label>Website <input type="text" name="website" autocomplete="off" tabindex="-1"/></label></div>
 <button type="submit" id="repast-submit">Submit My RSVP</button>
-<p id="repast-rsvp-status" role="status" aria-live="polite" class="rsvp-note">Your response will be saved securely for family seating and meal planning. No email application is required. You will receive an on-screen confirmation when it has been received; your table assignment is not yet confirmed. We will use your information only to coordinate this event.</p>
-</form></section>
+<p id="repast-rsvp-status" role="status" aria-live="polite" class="rsvp-note">You'll see a confirmation on screen once your RSVP is received. We'll use your information only to plan this event.</p>
+</form>
+</section>
 
 <details data-repast-faq="1"><summary>Where and when is the repast?</summary><p>The repast will be held at Innsbrook Country Club, 6701 Taft Street, Merrillville, IN 46410, from 1:30 to 3:30 PM CST on Monday, November 23. Because a plated meal will be served, every guest must be seated by 1:15 PM CST. <a href="#repast-rsvp">Send your repast RSVP</a>.</p></details>
