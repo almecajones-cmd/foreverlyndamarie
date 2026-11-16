@@ -22,3 +22,44 @@ document.querySelector('#family-contact')?.addEventListener('submit',event=>{
   const body='From: '+name+'\\nEmail: '+email+'\\n\\n'+question;
   window.location.href='mailto:almecajones@gmail.com?subject='+encodeURIComponent(subject)+'&body='+encodeURIComponent(body.replaceAll('\\n','\n'));
 });
+
+
+// Repast RSVPs: compose a consistently structured email for private family seating counts.
+// This form does not claim to register an RSVP or store personal information.
+document.querySelector('#repast-rsvp-form')?.addEventListener('submit',event=>{
+  event.preventDefault();
+  const form=event.currentTarget;
+  if(!form.reportValidity())return;
+  const fd=new FormData(form);
+  const val=name=>String(fd.get(name)||'').trim();
+  const contact=val('contactName');
+  const email=val('contactEmail');
+  const count=Number(val('partyCount'));
+  const names=val('guestNames');
+  const primary=val('primaryConnection');
+  const others=fd.getAll('connections').map(v=>String(v)).join(', ')||'None indicated';
+  const notes=val('seatingNotes')||'None indicated';
+  if(!contact||!email||!names||!primary||!Number.isInteger(count)||count<1||count>20)return;
+  const subject='Lynda Marie Jones Repast RSVP | '+primary+' | '+count+' guest'+(count===1?'':'s');
+  const body=[
+    'REPAST RSVP – LYNDA MARIE JONES',
+    'Monday, November 23, 2026',
+    'Innsbrook Country Club, Merrillville, Indiana',
+    'Repast 1:30–3:30 PM CST | Seated by 1:15 PM CST',
+    '',
+    'RSVP Contact: '+contact,
+    'Email: '+email,
+    'Total guests (including contact): '+count,
+    'Names of ALL guests:',
+    names,
+    '',
+    'Primary relationship to Lynda: '+primary,
+    'Other connections: '+others,
+    'Seating or group details: '+notes,
+    '',
+    'Please confirm our RSVP and seating details. Thank you.'
+  ].join('\n');
+  const status=document.querySelector('#repast-rsvp-status');
+  if(status) status.textContent='Your email application should open. Please press Send to deliver your RSVP. It is not submitted or confirmed on this website.';
+  window.location.href='mailto:almecajones@gmail.com?subject='+encodeURIComponent(subject)+'&body='+encodeURIComponent(body);
+});
