@@ -150,6 +150,11 @@ if repast_faq and s.select_one('.faqs'):
     s.select_one('.faqs').insert(0,repast_faq)
 if s.select_one('.updated'):
     s.select_one('.updated').string='Last updated: '+c['lastUpdated']
+if s.select_one('.calendar-note'):
+    s.select_one('.calendar-note').string='Funeral service end time is an estimate. Repast is scheduled for 1:30–3:30 PM CST.'
+if s.select_one('.plan-bottom .calendar-button'):
+    s.select_one('.plan-bottom .calendar-button').string='Add all events to calendar ↓'
+
 
 (out/'index.html').write_text(str(s))
 base=['BEGIN:VCALENDAR','VERSION:2.0','PRODID:-//Forever Lynda Marie//Memorial//EN','CALSCALE:GREGORIAN'];events=[]
