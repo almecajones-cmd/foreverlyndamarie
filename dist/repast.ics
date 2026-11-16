@@ -1,0 +1,14 @@
+BEGIN:VCALENDAR
+VERSION:2.0
+PRODID:-//Forever Lynda Marie//Memorial//EN
+CALSCALE:GREGORIAN
+BEGIN:VEVENT
+UID:lynda-repast-20261123@foreverlyndamarie.com
+DTSTAMP:20261115T000000Z
+DTSTART:20261123T193000Z
+DTEND:20261123T213000Z
+SUMMARY:Lynda Marie Jones - Repast (Plated Meal)
+LOCATION:Innsbrook Country Club\, 6701 Taft Street\, Merrillville\, IN 46410
+DESCRIPTION:Repast 1:30-3:30 PM Central Time. All guests must be seated by 1:15 PM CST for a plated meal. More details: https://www.foreverlyndamarie.com/#repast
+END:VEVENT
+END:VCALENDAR
