@@ -24,42 +24,77 @@ document.querySelector('#family-contact')?.addEventListener('submit',event=>{
 });
 
 
-// Repast RSVPs: compose a consistently structured email for private family seating counts.
-// This form does not claim to register an RSVP or store personal information.
-document.querySelector('#repast-rsvp-form')?.addEventListener('submit',event=>{
+// Private repast RSVP submission. Only a successful server response counts as saved.
+const repastPageLoadedAt = Date.now();
+document.querySelector('#repast-rsvp-form')?.addEventListener('submit', async event => {
   event.preventDefault();
-  const form=event.currentTarget;
-  if(!form.reportValidity())return;
-  const fd=new FormData(form);
-  const val=name=>String(fd.get(name)||'').trim();
-  const contact=val('contactName');
-  const email=val('contactEmail');
-  const count=Number(val('partyCount'));
-  const names=val('guestNames');
-  const primary=val('primaryConnection');
-  const others=fd.getAll('connections').map(v=>String(v)).join(', ')||'None indicated';
-  const notes=val('seatingNotes')||'None indicated';
-  if(!contact||!email||!names||!primary||!Number.isInteger(count)||count<1||count>20)return;
-  const subject='Lynda Marie Jones Repast RSVP | '+primary+' | '+count+' guest'+(count===1?'':'s');
-  const body=[
-    'REPAST RSVP – LYNDA MARIE JONES',
-    'Monday, November 23, 2026',
-    'Innsbrook Country Club, Merrillville, Indiana',
-    'Repast 1:30–3:30 PM CST | Seated by 1:15 PM CST',
-    '',
-    'RSVP Contact: '+contact,
-    'Email: '+email,
-    'Total guests (including contact): '+count,
-    'Names of ALL guests:',
-    names,
-    '',
-    'Primary relationship to Lynda: '+primary,
-    'Other connections: '+others,
-    'Seating or group details: '+notes,
-    '',
-    'Please confirm our RSVP and seating details. Thank you.'
-  ].join('\n');
-  const status=document.querySelector('#repast-rsvp-status');
-  if(status) status.textContent='Your email application should open. Please press Send to deliver your RSVP. It is not submitted or confirmed on this website.';
-  window.location.href='mailto:almecajones@gmail.com?subject='+encodeURIComponent(subject)+'&body='+encodeURIComponent(body);
+  const form = event.currentTarget;
+  const status = document.querySelector('#repast-rsvp-status');
+  const button = document.querySelector('#repast-submit');
+  if (!form.reportValidity()) {
+    if (status) status.textContent = 'Please complete the required fields before submitting.';
+    return;
+  }
+  const fd = new FormData(form);
+  const val = name => String(fd.get(name) || '').trim();
+  const count = Number(val('partyCount'));
+  const payload = {
+    contactName: val('contactName'),
+    contactEmail: val('contactEmail'),
+    contactPhone: val('contactPhone'),
+    partyCount: count,
+    guestNames: val('guestNames'),
+    primaryConnection: val('primaryConnection'),
+    otherConnections: fd.getAll('connections').map(String),
+    seatingNotes: val('seatingNotes'),
+    dietaryNotes: val('dietaryNotes'),
+    website: val('website'),
+    pageLoadedAt: repastPageLoadedAt
+  };
+  if (!payload.contactName || !payload.contactEmail || !payload.guestNames ||
+      !payload.primaryConnection || !Number.isInteger(count) || count < 1 || count > 20) {
+    if (status) status.textContent = 'Please check your name, email, party size, guest names, and connection to Lynda.';
+    return;
+  }
+  form.setAttribute('aria-busy', 'true');
+  button.disabled = true;
+  button.textContent = 'Saving Your RSVP…';
+  if (status) status.textContent = 'Saving your RSVP securely…';
+  try {
+    const ctrl = new AbortController();
+    const timeoutId = setTimeout(() => ctrl.abort(), 18000);
+    let response;
+    try {
+      response = await fetch('https://zikpbudiofzapoiqaqpm.supabase.co/functions/v1/lynda-repast-rsvp', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        mode: 'cors',
+        cache: 'no-store',
+        body: JSON.stringify(payload),
+        signal: ctrl.signal
+      });
+    } finally {
+      clearTimeout(timeoutId);
+    }
+    const result = await response.json().catch(() => ({}));
+    if (!response.ok || result.ok !== true) {
+      throw new Error(result.error || 'We could not save your RSVP. Please try again.');
+    }
+    const reference = String(result.reference || '').slice(0, 8).toUpperCase();
+    if (status) {
+      status.textContent = 'RSVP RECEIVED — ' + count + ' guest' + (count === 1 ? '' : 's') +
+        ' saved for repast planning. Reference: ' + reference +
+        '. Thank you. The family will use your response for seating and meal counts. This is not a table assignment.';
+      status.classList.add('rsvp-confirmed');
+    }
+    button.textContent = 'RSVP Received ✓';
+    form.querySelectorAll('input, select, textarea').forEach(field => field.disabled = true);
+    status?.scrollIntoView({ behavior: 'smooth', block: 'center' });
+  } catch (error) {
+    if (status) status.textContent = error instanceof Error ? error.message : 'Could not save RSVP. Please try again.';
+    button.disabled = false;
+    button.textContent = 'Try Submitting Again';
+  } finally {
+    form.removeAttribute('aria-busy');
+  }
 });
