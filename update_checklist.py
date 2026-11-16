@@ -130,6 +130,27 @@ if c['contact'].get('authorized') and contact_mail:
  contact=fragment('<section class="section wrap contact-family" id="contact"><p class="eyebrow">We\'re here to help</p><h2>Questions for Our Family?</h2><p>For additional questions about the arrangements, please contact the family privately. This option opens your email app with your message ready to send.</p><form id="family-contact" action="mailto:'+contact_mail+'" method="get"><div class="contact-fields"><label>Your name <input name="name" required autocomplete="name" maxlength="120" placeholder="Your name"></label><label>Your email <input name="email" type="email" required autocomplete="email" maxlength="200" placeholder="Your email address"></label></div><label>Your question <textarea name="question" required maxlength="1500" rows="4" placeholder="How can we help?"></textarea></label><button type="submit">Compose Email to Family ↗</button><p class="contact-note">This opens your email application; please press Send there to deliver your message. No messages are stored on this website.</p></form></section>')
  s.select_one('#song').insert_before(contact)
 
+# Restore the family-approved Innsbrook repast and structured seating RSVP.
+# The separate fragment is the canonical source for this one-time memorial event.
+repast_fragments=BeautifulSoup((p/'repast-fragments.html').read_text(),'html.parser')
+repast_schedule=repast_fragments.select_one('[data-repast-schedule]')
+if repast_schedule and len(s.select('.schedule article'))>=4:
+    del repast_schedule['data-repast-schedule']
+    s.select('.schedule article')[3].replace_with(repast_schedule)
+repast_venue=repast_fragments.select_one('#repast')
+original_repast=s.select_one('#repast')
+if repast_venue and original_repast:
+    original_repast.replace_with(repast_venue)
+    rsvp=repast_fragments.select_one('#repast-rsvp')
+    if rsvp:
+        repast_venue.insert_after(rsvp)
+repast_faq=repast_fragments.select_one('[data-repast-faq]')
+if repast_faq and s.select_one('.faqs'):
+    del repast_faq['data-repast-faq']
+    s.select_one('.faqs').insert(0,repast_faq)
+if s.select_one('.updated'):
+    s.select_one('.updated').string='Last updated: '+c['lastUpdated']
+
 (out/'index.html').write_text(str(s))
 base=['BEGIN:VCALENDAR','VERSION:2.0','PRODID:-//Forever Lynda Marie//Memorial//EN','CALSCALE:GREGORIAN'];events=[]
 for k,title in [('viewing','Visitation and Viewing'),('service','Funeral Service')]:
@@ -143,3 +164,25 @@ for k,title in [('viewing','Visitation and Viewing'),('service','Funeral Service
   (out/name).write_bytes(('\r\n'.join(folded)+'\r\n').encode())
  save(k+'.ics',base+lines+['END:VCALENDAR']);events+=lines
 save('all-events.ics',base+events+['END:VCALENDAR'])
+
+# Include the repast in both individual and combined calendar downloads.
+if c.get('repast',{}).get('start') and c['repast'].get('end'):
+ from datetime import timezone
+ import html as _html
+ def repast_ics_utc(t):
+  return datetime.fromisoformat(c['date']+'T'+t).replace(tzinfo=ZoneInfo(c['repast'].get('timezone','America/Chicago'))).astimezone(ZoneInfo('UTC')).strftime('%Y%m%dT%H%M%SZ')
+ def ics_escape(v):
+  return str(v).replace('\\','\\\\').replace(';','\\;').replace(',','\\,').replace('\n','\\n')
+ r=c['repast']
+ repastevent=[
+  'BEGIN:VEVENT','UID:lynda-repast-20261123@foreverlyndamarie.com','DTSTAMP:20261115T000000Z',
+  'DTSTART:'+repast_ics_utc(r['start']),
+  'DTEND:'+repast_ics_utc(r['end']),
+  'SUMMARY:Lynda Marie Jones - Repast (Plated Meal)',
+  'LOCATION:'+ics_escape(r['venue']+', '+r['address']),
+  'DESCRIPTION:'+ics_escape('Repast 1:30–3:30 PM CST. All guests must be seated by 1:15 PM CST for a plated meal. Website: https://www.foreverlyndamarie.com/#repast'),
+  'END:VEVENT'
+ ]
+ save('repast.ics',base+repastevent+['END:VCALENDAR'])
+ save('all-events.ics',base+events+repastevent+['END:VCALENDAR'])
+
