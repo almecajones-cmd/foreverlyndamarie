@@ -929,3 +929,111 @@ header{border-bottom:1px solid #ad88534d}
     object-fit: contain;
   }
 }
+
+/* Adult-child repast RSVP radio choice layout and conditional Gary count */
+.plan-section #repast-rsvp-form .rsvp-radio-group {
+  min-width: 0;
+  margin: 6px 0 18px;
+  padding: 16px 0 8px;
+  border: 0;
+  border-top: 1px solid #e8dcdb;
+}
+.plan-section #repast-rsvp-form .rsvp-radio-group legend {
+  font: 600 15px/1.5 'Source Sans 3', Arial, sans-serif;
+  color: #44313f;
+  padding: 0 10px 0 0;
+}
+.plan-section #repast-rsvp-form .rsvp-required {
+  font-size: 13px;
+  color: #74636d;
+  font-weight: 400;
+}
+.plan-section #repast-rsvp-form #rsvp-relationship-help {
+  font-size: 13px;
+  color: #71626c;
+  margin: 6px 0 11px;
+}
+.plan-section #repast-rsvp-form .rsvp-radio-options {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 9px 12px;
+}
+.plan-section #repast-rsvp-form .rsvp-radio-options label {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 12px 14px;
+  margin: 0;
+  min-height: 52px;
+  box-sizing: border-box;
+  border: 1px solid #e2d5d7;
+  border-radius: 4px;
+  background: #fff;
+  cursor: pointer;
+  font-size: 15px;
+  line-height: 1.35;
+  font-weight: 500;
+}
+.plan-section #repast-rsvp-form .rsvp-radio-options label:has(input:checked) {
+  background: #faf1f4;
+  border-color: #92285b;
+}
+.plan-section #repast-rsvp-form .rsvp-radio-options input[type="radio"] {
+  appearance: auto;
+  -webkit-appearance: radio;
+  display: block;
+  flex: 0 0 18px;
+  width: 18px !important;
+  min-width: 18px !important;
+  height: 18px !important;
+  padding: 0 !important;
+  margin: 0 !important;
+  border: initial;
+  accent-color: #8d2658;
+  background: transparent;
+}
+.plan-section #repast-rsvp-form .rsvp-radio-options label:focus-within {
+  outline: 2px solid #8c2156;
+  outline-offset: 2px;
+}
+.plan-section #repast-rsvp-form #rsvp-gary-fields[hidden] { display: none !important; }
+.plan-section #repast-rsvp-form .rsvp-gary-fields {
+  display: grid;
+  grid-template-columns: minmax(0,1fr) minmax(0,1fr);
+  gap: 0 20px;
+  padding: 20px 18px 6px;
+  margin: 0 0 22px;
+  background: #f9f1f4;
+  border-left: 3px solid #912354;
+}
+.plan-section #repast-rsvp-form .rsvp-gary-fields .rsvp-field-help {
+  grid-column: 1 / -1;
+  margin: -9px 0 18px;
+}
+.plan-section #repast-rsvp-form .rsvp-field-help {
+  font: 13px/1.5 'Source Sans 3',Arial,sans-serif;
+  color: #695b64;
+  margin: -7px 0 14px;
+}
+.plan-section #repast-rsvp-form .rsvp-total {
+  display: inline-block;
+  margin: 0 0 19px;
+  padding: 9px 15px;
+  border: 1px solid #e5d8dd;
+  border-radius: 3px;
+  background: #f8f1f3;
+  color: #70224b;
+  font: 600 15px/1.5 'Source Sans 3',Arial,sans-serif;
+}
+.plan-section .repast-set-menu {
+  color: #5d4953 !important;
+  font-size: 14px !important;
+  margin-top: -8px !important;
+  margin-bottom: 21px !important;
+}
+@media (max-width: 720px) {
+  .plan-section #repast-rsvp-form .rsvp-radio-options { grid-template-columns: minmax(0,1fr); }
+  .plan-section #repast-rsvp-form .rsvp-radio-options label { min-height: 51px; }
+  .plan-section #repast-rsvp-form .rsvp-gary-fields { grid-template-columns: minmax(0,1fr); }
+  .plan-section #repast-rsvp-form .rsvp-gary-fields .rsvp-field-help { grid-column: 1; }
+}
