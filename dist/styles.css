@@ -756,3 +756,100 @@ header{border-bottom:1px solid #ad88534d}
     display: none !important;
   }
 }
+
+/* Repast logistics and grouped RSVP: editorial, accessible, responsive */
+.plan-section .schedule .repast-seat-notice {
+  color: #791b4c !important;
+  margin-top: 6px !important;
+  font-weight: 500;
+}
+.plan-section .repast-confirmed {
+  display: grid;
+  grid-template-columns: minmax(0,.95fr) minmax(0,1.05fr);
+  gap: 0;
+  margin-top: 24px;
+  padding: 0;
+  overflow: hidden;
+  background: #fffdfa;
+  border: 1px solid #e8d9d5;
+  scroll-margin-top: 90px;
+  box-shadow: 0 2px 20px #2a13200a;
+}
+.plan-section .repast-confirmed .repast-photo { min-height: 340px; overflow: hidden; background: #e9e0df; }
+.plan-section .repast-confirmed .repast-photo img {
+  display: block; width: 100%; height: 100%; min-height: 340px;
+  object-fit: cover; object-position: center;
+}
+.plan-section .repast-confirmed .repast-details { padding: clamp(23px,3.0vw,37px); min-width: 0; }
+.plan-section .repast-confirmed .eyebrow { color: #8c1d51; font-size: 11px; letter-spacing: .16em; margin: 0 0 8px; }
+.plan-section .repast-confirmed h3 {
+  font: 500 clamp(30px,3.4vw,42px)/1.07 'Cormorant Garamond',Georgia,serif;
+  color: #2b1b28; margin: 0 0 15px;
+}
+.plan-section .repast-confirmed .repast-time { margin: 0 0 16px; }
+.plan-section .repast-confirmed .repast-time strong { display: inline-block; font-size: 18px; font-weight: 700; color: #301f29; }
+.plan-section .repast-confirmed .repast-time span { display: inline-block; font-size: 13px; color: #6b5c64; margin-left: 6px; }
+.plan-section .repast-confirmed .repast-seating {
+  border-left: 3px solid #8d2358; padding-left: 15px;
+  margin: 17px 0 !important; color: #503541; font-size: 15px !important; line-height: 1.6;
+}
+.plan-section .repast-confirmed address { font: normal 500 16px/1.55 'Source Sans 3',Arial,sans-serif; margin: 15px 0 0; color: #342532; }
+.plan-section .repast-confirmed .map-links { margin-top: 11px; }
+.plan-section .repast-confirmed .map-links a { min-height: 35px; }
+.plan-section .repast-actions { display: flex; gap: 12px; align-items: center; flex-wrap: wrap; margin-top: 18px; }
+.plan-section .repast-actions a { font-size: 13px; text-decoration: none; }
+.plan-section .repast-actions .repast-rsvp-cta {
+  display: inline-flex; align-items: center; justify-content: center;
+  min-height: 43px; padding: 9px 15px; background: #351025; color: white;
+  border: 1px solid #351025; border-radius: 3px; font-weight: 600;
+}
+.plan-section .repast-rsvp {
+  scroll-margin-top: 90px; margin-top: 22px; padding: clamp(23px,3vw,38px);
+  border: 1px solid #e5d5da; background: #fffdfa; color: #322530;
+}
+.plan-section .repast-rsvp .eyebrow { color: #8c2156; letter-spacing: .16em; font-size: 11px; margin-bottom: 6px; }
+.plan-section .repast-rsvp h3 { font: 500 clamp(32px,3.3vw,44px)/1.12 'Cormorant Garamond',Georgia,serif; margin: 0 0 12px; }
+.plan-section .repast-rsvp > p:not(.eyebrow) { font: 16px/1.55 'Source Sans 3',Arial,sans-serif; max-width: 860px; color: #5f5057; margin: 0 0 16px; }
+.plan-section .repast-rsvp .repast-rsvp-reminder { font-size: 15px !important; color: #7a194b !important; margin-bottom: 20px !important; }
+.plan-section #repast-rsvp-form { max-width: 900px; }
+.plan-section #repast-rsvp-form .rsvp-fields { display: grid; grid-template-columns: repeat(2,minmax(0,1fr)); gap: 3px 18px; }
+.plan-section #repast-rsvp-form label { display: block; font: 600 14px/1.5 'Source Sans 3',Arial,sans-serif; margin-bottom: 17px; color: #44313f; }
+.plan-section #repast-rsvp-form input:not([type="checkbox"]),
+.plan-section #repast-rsvp-form select,
+.plan-section #repast-rsvp-form textarea {
+  display: block; width: 100%; min-width: 0; margin-top: 7px; padding: 11px 12px;
+  color: #2a1c29; background: white; border: 1px solid #cabbbf; border-radius: 3px;
+  font: 16px/1.4 'Source Sans 3',Arial,sans-serif; box-sizing: border-box;
+}
+.plan-section #repast-rsvp-form textarea { resize: vertical; }
+.plan-section #repast-rsvp-form input:focus-visible,
+.plan-section #repast-rsvp-form select:focus-visible,
+.plan-section #repast-rsvp-form textarea:focus-visible { outline: 2px solid #8c2156; outline-offset: 2px; }
+.plan-section #repast-rsvp-form .rsvp-connections {
+  display: flex; flex-wrap: wrap; gap: 8px 22px; padding: 14px 0 8px;
+  border: 0; border-top: 1px solid #e8dcdb; margin: 5px 0 12px;
+}
+.plan-section #repast-rsvp-form .rsvp-connections legend { padding: 0 7px 0 0; font: 600 14px/1.5 'Source Sans 3',Arial,sans-serif; color: #44313f; }
+.plan-section #repast-rsvp-form .rsvp-connections label { display: inline-flex; align-items: center; gap: 7px; margin-bottom: 8px; font-weight: 400; }
+.plan-section #repast-rsvp-form .rsvp-connections input { accent-color: #82174c; width: 17px; height: 17px; margin: 0; }
+.plan-section #repast-rsvp-form button {
+  background: #3d122c; color: white; border: 1px solid #3d122c; border-radius: 3px;
+  padding: 12px 25px; min-height: 48px; cursor: pointer;
+  font: 600 15px/1.4 'Source Sans 3',Arial,sans-serif;
+}
+.plan-section #repast-rsvp-form button:hover { background: #64264d; }
+.plan-section #repast-rsvp-form .rsvp-note { max-width: 730px; font: 13px/1.6 'Source Sans 3',Arial,sans-serif !important; margin: 14px 0 0; color: #645760; }
+@media (max-width: 720px) {
+  .plan-section .repast-confirmed { grid-template-columns: minmax(0,1fr); }
+  .plan-section .repast-confirmed .repast-photo { min-height: 210px; max-height: 280px; }
+  .plan-section .repast-confirmed .repast-photo img { height: 240px; min-height: 0; object-fit: cover; }
+  .plan-section .repast-confirmed .repast-details { padding: 25px 22px 29px; }
+  .plan-section .repast-confirmed .repast-time span { display: block; margin: 4px 0 0; }
+  .plan-section .repast-actions { flex-direction: column; align-items: stretch; }
+  .plan-section .repast-actions a { justify-content: center; }
+  .plan-section .repast-rsvp { padding: 25px 20px; }
+  .plan-section #repast-rsvp-form .rsvp-fields { grid-template-columns: minmax(0,1fr); gap: 0; }
+  .plan-section #repast-rsvp-form .rsvp-connections { display: block; }
+  .plan-section #repast-rsvp-form .rsvp-connections label { display: flex; }
+  .plan-section #repast-rsvp-form button { width: 100%; }
+}
